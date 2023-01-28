@@ -118,3 +118,4 @@ print(a%b)
 print(round(a/b, 2))
 
 print("데스크톱 앱 커밋 테스트")
+print("데스크톱 앱 레파지토리 이름변경 테스트")
