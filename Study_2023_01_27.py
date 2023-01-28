@@ -119,3 +119,207 @@ print(round(a/b, 2))
 
 print("데스크톱 앱 커밋 테스트")
 print("데스크톱 앱 레파지토리 이름변경 테스트")
+
+print("[기초-산술연산] 정수 3개 입력받아 합과 평균 출력하기(설명)(py)")
+
+a, b, c = input().split()
+a=int(a)
+b=int(b)
+c=int(c)
+print(a+b+c, format((a+b+c)/3,".2f"))
+
+print("[기초-비트시프트연산] 정수 1개 입력받아 2배 곱해 출력하기(설명)(py)")
+a = input()
+a = int(a)
+print(a*2)
+print(a<<1)
+
+print("[기초-비트시프트연산] 2의 거듭제곱 배로 곱해 출력하기(설명)(py)")
+a, b = input().split()
+a = int(a)
+b = int(b)
+print(a<<b)
+
+print("[기초-비교연산] 정수 2개 입력받아 비교하기1(설명)(py)")
+a, b =input().split()
+a = int(a)
+b = int(b)
+print(a<b)
+
+print("[기초-비교연산] 정수 2개 입력받아 비교하기2(설명)(py)")
+a, b =input().split()
+a = int(a)
+b = int(b)
+print(a==b)
+    
+print("[기초-비교연산] 정수 2개 입력받아 비교하기3(설명)(py)")
+a, b =input().split()
+a = int(a)
+b = int(b)
+print(b>=a)
+
+print("[기초-비교연산] 정수 2개 입력받아 비교하기4(설명)(py)")
+a, b =input().split()
+a = int(a)
+b = int(b)
+print(a!=b)
+
+print("[기초-논리연산] 정수 입력받아 참 거짓 평가하기(설명)(py)")
+a = int(input())
+print(bool(a))
+
+print("[기초-논리연산] 참 거짓 바꾸기(설명)(py)")
+a = bool(int(input()))
+print(not a)
+
+print("[기초-논리연산] 둘 다 참일 경우만 참 출력하기(설명)(py)")
+a, b = input().split()
+print(bool(int(a)) and bool(int(b)))
+
+print("[기초-논리연산] 하나라도 참이면 참 출력하기(설명)(py)")
+a, b = input().split()
+print(bool(int(a)) or bool(int(b)))
+
+print("[기초-논리연산] 참/거짓이 서로 다를 때에만 참 출력하기(설명)(py)")
+print("2개의 정수값이 입력될 때,\
+      그 불 값(True/False) 이 서로 다를 때에만 True 를 출력하는 프로그램을 작성해보자.")
+a, b = input().split()
+a = bool(int(a))
+b = bool(int(b))
+print(a^b)
+print((a and (not b)) or ((not a) and b))
+print(bool(int(a)) != bool(int(b)))
+
+print("[기초-논리연산] 참/거짓이 서로 같을 때에만 참 출력하기(설명)(py)")
+print("2개의 정수값이 입력될 때,\
+그 불 값(True/False) 이 서로 같을 때에만 True 를 출력하는 프로그램을 작성해보자.")
+
+a, b = input().split()
+a = bool(int(a))
+b = bool(int(b))
+print(a == b)
+
+print("[기초-논리연산] 둘 다 거짓일 경우만 참 출력하기(py)")
+a, b = input().split()
+a = bool(int(a))
+b = bool(int(b))
+print(not a and not b)
+
+print("[기초-비트단위논리연산] 비트단위로 NOT 하여 출력하기(설명)(py)")
+a = input()
+a = int(a)
+print(~a)
+
+print("[기초-비트단위논리연산] 비트단위로 AND 하여 출력하기(설명)(py)")
+a, b = input().split()
+a = int(a)
+b = int(b)
+print(a & b)
+
+print("6061[기초-비트단위논리연산] 비트단위로 OR 하여 출력하기(설명)(py)")
+a, b = input().split()
+a = int(a)
+b = int(b)
+print(a | b)
+
+print("6062[기초-비트단위논리연산] 비트단위로 XOR 하여 출력하기(설명)(py)")
+a, b = input().split()
+a = int(a)
+b = int(b)
+print(a ^ b)
+
+print("6063[기초-3항연산] 정수 2개 입력받아 큰 값 출력하기(설명)(py)")
+a, b = input().split()
+a = int(a)
+b = int(b)
+if a > b:
+    print(a)
+else:
+    print(b)
+c = (a if (a>=b) else b)
+print(c)
+
+print("6064[기초-3항연산] 정수 3개 입력받아 가장 작은 값 출력하기(설명)(py)")
+a, b, c = input().split()
+a = int(a)
+b = int(b)
+c = int(c)
+d = a if (a<b) else b
+e = d if (d<c) else c
+print(e)
+
+print("6065[기초-조건/선택실행구조] 정수 3개 입력받아 짝수만 출력하기(설명)(py)")
+a, b, c = input().split()
+a = int(a)
+b = int(b)
+c = int(c)
+if a%2 == 0:
+    print(a)
+if b%2 ==0:
+    print(b)
+if c%2 ==0:
+    print(c)
+
+print("6066[기초-조건/선택실행구조] 정수 3개 입력받아 짝/홀 출력하기(설명)(py)")
+a, b, c = input().split()
+a = int(a)
+b = int(b)
+c = int(c)
+if a%2 == 0:
+    print("even")
+else:
+    print("odd")
+if b%2 ==0:
+    print("even")
+else:
+    print("odd")
+if c%2 ==0:
+    print("even")
+else:
+    print("odd")
+
+print("6067[기초-조건/선택실행구조] 정수 1개 입력받아 분류하기(설명)(py)")
+a = int(input())
+if a%2 ==0 and a<0:
+    print("A")
+elif a%2 !=0 and a<0:
+    print("B")
+elif a%2 ==0 and a>0:
+    print("C")
+elif a%2 !=0 and a>0:
+    print("D")
+
+print("6068[기초-조건/선택실행구조] 점수 입력받아 평가 출력하기(설명)(py)")
+a = int(input())
+if 90 <= a <= 100:
+    print("A")
+elif 70<= a <= 89:
+    print("B")
+elif 40 <= a <= 69:
+    print("C")
+else:
+    print("D")
+
+print("6069[기초-조건/선택실행구조] 평가 입력받아 다르게 출력하기(py)")
+a = input()
+if a == "A":
+    print("best!!!")
+elif a == "B":
+    print("good!!")
+elif a == "C":
+    print("run!")
+elif a == "D":
+    print("slowly~")
+else:
+    print("what?")
+
+print("6070[기초-조건/선택실행구조] 월 입력받아 계절 출력하기(설명)(py)")
+a = int(input())
+if a == 12 or a == 1 or a == 2:
+    print("winter")
+elif a ==3 or a == 4 or a == 5:
+    print("spring")
+elif a == 6 or a == 7 or a ==8:
+    print("summer")
+elif a ==9 or a == 10 or a == 11:
+    print("fall")
