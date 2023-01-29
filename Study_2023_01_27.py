@@ -323,3 +323,85 @@ elif a == 6 or a == 7 or a ==8:
     print("summer")
 elif a ==9 or a == 10 or a == 11:
     print("fall")
+
+print("6071[기초-반복실행구조] 0 입력될 때까지 무한 출력하기(설명)(py)")
+n=1
+while n != 0:
+    n = int(input())
+    if n != 0:
+        print(n)
+
+print("6072[기초-반복실행구조] 정수 1개 입력받아 카운트다운 출력하기1(설명)(py)")
+
+n = int(input())
+while n != 0:
+    if n != 0:
+        print(n)
+        n = n-1
+    # elif n ==0:
+    #     print(n)
+    #     break
+
+print("6073[기초-반복실행구조] 정수 1개 입력받아 카운트다운 출력하기2(py)")
+
+n = int(input())
+while n != 0:
+    n = n-1
+    print(n)
+
+print("6074[기초-반복실행구조] 문자 1개 입력받아 알파벳 출력하기(설명)(py)")
+
+a = ord(input()) # a = 97
+t = ord('a')
+while t <=a:
+    print(chr(t),end=' ')
+    t+=1
+
+print("6075[기초-반복실행구조] 정수 1개 입력받아 그 수까지 출력하기1(py)")
+n = int(input())
+c = 0
+while c !=n+1:
+    print(c)
+    c +=1
+
+n = int(input())
+c = 0
+while c <=n:
+    print(c)
+    c +=1
+
+print("6076[기초-반복실행구조] 정수 1개 입력받아 그 수까지 출력하기2(설명)(py)")
+n = int(input())
+for i in range(n+1):
+    print(i)
+
+print("6077[기초-종합] 짝수 합 구하기(설명)(py)")
+n = int(input())
+c =0
+for i in range(n+1):
+    if i%2 == 0:
+        c = i+c
+print(c)
+
+print("6078[기초-종합] 원하는 문자가 입력될 때까지 반복 출력하기(py)")
+n = 'a'
+while n != 'q':
+    n = input()
+    if n != 'q':
+     print(n)
+print('q')
+
+while True:
+   n = input()
+   print(n)
+   if n == 'q':
+    break
+
+print("6079[기초-종합] 언제까지 더해야 할까?(py)")
+n = int(input())
+a = 1
+sum = 0
+while sum < n:
+    sum += a
+    a += 1
+print(a-1)
