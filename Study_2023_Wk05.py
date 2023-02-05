@@ -179,3 +179,163 @@ for i in range(1, h+1):
     for j in range(1, w+1):
         print(d[i][j],end=' ')
     print()
+
+
+print("2월 5일")
+
+#돌놓기
+d = []
+for i in range(20): # 19x19 바둑판 생성하기
+    d.append([])
+    for j in range(20):
+        d[i].append(0)
+
+n = int(input())
+for i in range(n):
+    x,y = map(int,input().split())
+    d[x][y] = 1
+
+for i in range(1,20): # 현재 바둑판 출력
+    for j in range(1,20):
+        print(d[i][j],end=' ')
+    print()
+
+#십자뒤집기
+d = []
+for i in range(20): # 바둑판 생성
+    d.append([])
+    for j in range(20):
+        d[i].append(0)
+
+for i in range(19):
+    a = list(map(int,input().split()))
+    for j in range(19):
+        d[i+1][j+1] = a[j]
+
+n = int(input())
+for i in range(n):
+    x,y, = map(int, input().split())
+    for j in range(20):
+        if d[j][y] ==0:
+            d[j][y] = 1
+        else:
+            d[j][y] = 0
+        if d[x][j] == 0:
+            d[x][j] =1
+        else:
+            d[x][j] =0
+
+for i in range(1,20): # 바둑판 출력
+    for j in range(1,20):
+        print(d[i][j], end=' ')
+    print()
+
+코드업 6097번 설탕과자 뽑기
+w, h = map(int, input().split())
+de = []
+
+# de=[[0]*(w) for i in range(h)]
+
+for i in range(w+1):
+    de.append([])
+    for j in range(h+1):
+        de[i].append(0)
+
+n = int(input())
+for j in range(n):
+    i,d,x,y = map(int, input().split())
+    for l in range(i):
+        if d ==1:
+            de[x+l][y] = 1
+        else:
+            de[x][y+l] = 1
+
+for i in range(1,w+1):
+    for j in range(1, h+1):
+        print(de[i][j],end=' ')
+    print()
+
+
+
+d=[[0]*19 for i in range(19)]
+
+w,h = map(int, input().split())
+d=[[0]*(w+1) for i in range(h+1)]
+
+for i in range(1,w+1):
+    for j in range(1, h+1):
+        print(d[i][j],end=' ')
+    print()
+
+
+print("6098 : [기초-리스트] 성실한 개미(py)")
+
+w, h = list(map(int,input().split()))
+d= []
+for i in range(11):
+    d.append([])
+    for j in range(11):
+        d[i].append(0)
+
+for i in range(10):
+    a = list(map(int, input().split()))
+    for j in range(10):
+        d[i+1][j+1] = a[j]
+
+x = 2
+y = 2
+
+while True:
+    if d[x][y] == 0:
+        d[x][y] = 9
+    elif d[x][y] == 2:
+        d[x][y] = 9
+        break
+    
+    if (d[x][y+1] == 1 and d[x+1][y] == 1) or (x==9 and y ==9) :
+        break
+
+    if d[x][y+1] != 1:
+        y += 1
+    elif d[x+1][y] !=1:
+        x += 1
+
+for i in range(1,11):
+    for j in range(1,11):
+        print(d[i][j],end=' ')
+    print()
+
+
+d = []
+for i in range(11):
+    d.append([])
+    for j in range(11):
+        d[i].append(0)
+
+for i in range(10):
+    a = list(map(int, input().split()))
+    for j in range(10):
+        d[i+1][j+1] = a[j]
+
+x = 2
+y = 2
+
+while True:
+    if d[x][y] ==0:
+        d[x][y] =9
+    elif d[x][y] ==2:
+        d[x][y] =9
+        break
+
+    if (d[x][y+1] == 1 and d[x+1][y] == 1) or (x == 9 and y == 9):
+        break
+
+    if d[x][y+1] != 1:
+        y += 1
+    elif d[x+1][y] != 1:
+        x += 1
+
+for i in range(1, 11):
+    for j in range(1, 11):
+        print(d[i][j], end=' ')
+    print()
