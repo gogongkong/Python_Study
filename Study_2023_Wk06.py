@@ -320,3 +320,133 @@ result += count*first
 result += (m-count)*sec
 
 print(result)
+
+
+print("2월 9일 공부 시작")
+#이코테 그리디 큰수의 법칙 실습 문제 복습
+
+# while을 이용한 방법
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+
+data.sort()
+first = data[n-1]
+sec = data[n-2]
+
+index = 0
+
+while True:
+    for i in range(k):
+        if m == 0:
+            break
+        index += first
+        m -= 1
+    
+    if m == 0:
+        break
+    index += sec
+    m -=1
+print(index)
+
+# 규칙을 알아내서 푸는 방법
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+
+data.sort()
+first = data[n-1]
+sec = data[n-2]
+
+index = 0
+
+func = int(m/(k+1))*k + m%(k+1)
+index += func*first
+index += (m-func)*sec
+
+print(index)
+
+print("숫자 카드 게임")
+#min과 max 함수 이용
+n, m = list(map(int, input().split()))
+result = 0
+for i in range(n):
+    data = list(map(int, input().split()))
+    minimum = min(data)
+    result = max(result, minimum)
+
+print(result)
+
+#이중 for 이용 
+n , m = list(map(int, input().split()))
+result = 0
+for i in range(n):
+    data = list(map(int, input().split()))
+    min_data = 10001
+    for j in data:
+        min_data = min(min_data, j)
+    # result = max(result, min_data)
+
+print(min_data)
+
+# 함수이용 다시 한번 풀어보기
+n, m = map(int, input().split())
+result = 0
+for i in range(n): 
+    data = list(map(int, input().split()))
+    min_data = min(data)
+    result = max(min_data, result)
+
+print(result)
+
+print("1이 될때 까지 p99")
+# 내 풀이
+n, k = map(int, input().split())
+cnt = 0
+while True:
+    if n ==1:
+        break
+    elif n % k ==0:
+        n = n/k
+        cnt+=1
+    elif n%k !=0:
+        n -=1
+        cnt+=1
+print(cnt)
+
+# 단순하게 푸는 방법
+n, k = map(int, input().split())
+result = 0
+
+#n 이 k이상이라면 k로 계속 나누기
+while n >= k:
+    # n이 k로 나누어 떨어지지 않는다면 n에서 1씩 빼기
+    while n%k !=0:
+        n-=1
+        result += 1
+    #k로 나누기
+    n//=k
+    result +=1
+
+#마지막으로 남은 수에 대하여 1씩 빼기
+while n>1:
+    n -=1
+    result += 1
+
+print(result)
+
+n, k = map(int, input().split())
+result = 0
+
+while True:
+    #(n == k 로 나누어 떨어지는 수) 가 될때 까지 1씩 빼기
+    target = (n//k)*k
+    result += (n-target)
+    n = target
+    #n이 k보다 작을 때(더이상 나눌 수 없을때) 반복문 탈출
+    if n < k:
+        break
+    #k로 나누기
+    result +=1
+    n//=k
+#마지막으로 남은 수 에 대하여 1씩 빼기
+result += (n-1)
+print(result)
