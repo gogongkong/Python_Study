@@ -583,3 +583,142 @@ for i in range(n+1):
                 count += 1
 
 print(count)
+
+''' 실전문제 2 왕실의 나이트 115p'''
+input_data = input() # 나이트의 위치 입력 받기
+row = int(input_data[1])
+colum = int(ord(input_data[0])) - int(ord('a'))+1
+# 나이트가 이동 할 수 있는 경우의 수
+steps = [(-2,-1), (-1,-2), (1,-2), (-2, 1), (2, 1), (1, 2), (-1, 2), (2, -1)]
+# 8가지 방향에 각 위치로 이동이 가능한지 확인
+result = 0
+for step in steps:
+    # 이동하고자 하는 위치 확인
+    next_row = row + step[0]
+    next_colum = colum + step[1]
+    # 해당 위치로 이동이 가능하면 카운트 증가
+    if next_row >=1 and next_row <=8 and next_colum>=1 and next_colum<=8:
+        result +=1
+
+print(result)
+
+
+''' 풀었던 실전문제 다시 풀어보면서 기억하기'''
+
+# 그리디 예제 3-1 거스름돈 87p
+n =1260 #int(input())
+coin = [500, 100, 50, 10]
+cnt = 0
+
+for i in coin:
+    cnt += n//i
+    n = n%i
+
+print(cnt)
+
+# 그리디 실전문제2 큰수의 법칙 92p
+# while + for 이용 
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+data.sort()
+first = data[n-1]
+sec = data[n-2]
+result = 0
+while True:
+    for i in range(k):
+        if m == 0:
+            break
+        result += first
+        m-=1
+    
+    if m==0:
+        break
+    result+=sec
+    m-=1
+print(result)
+
+# 규칙을 찾아서 푸는방법
+n, m, k = map(int, input().split())
+data = list(map(int, input().split()))
+data.sort()
+first = data[n-1]
+sec = data[n-2]
+result =0
+#(m/(k+1))*k # 66656665 4번씩 반복 --> k+1, 횟수 m을 나누면 2 --> 2번반복, first가 최대 3번나옴 x 2번반복
+#(m%(k+1)) # 위 공식에서 나머지가 발생할때 나머지도 추가해주자
+
+cal = int(m/(k+1))*k + m%(k+1)
+result += cal*first
+result+= (m-cal)*sec
+print(result)
+
+''' 실전문제3 숫자 카드게임 96p'''
+n,m = map(int, input().split())
+result = 0
+for i in range(n):
+    num = list(map(int, input().split()))
+    num = min(num)
+    result = max(result, num)
+
+print(result)
+
+''' 실전문제4 1이 될때까지 99p'''
+n, k = map(int, input().split())
+result = 0
+while n!=1:
+    if n %k !=0: 
+        i = n%k
+        n -=i
+        result += i
+    elif n%k ==0:
+        n /=k
+        result +=1
+
+print(result)
+
+''' 구현 예제 4-1 상하좌우 110p '''
+n = int(input())
+x, y = 1, 1
+dx = [0, 0, -1, 1]
+dy = [-1, 1, 0, 0]
+moving = ['L', 'R', 'U', 'D']
+
+route = input().split()
+for move in route:
+    for i in range(len(moving)):
+        if move == moving[i]:
+            nx = x+dx[i]
+            ny = y+dy[i]
+    
+    if nx<1 or ny<1 or nx>n or ny>n:
+        continue
+    x, y = nx, ny
+print(x, y)
+
+'''구현 예제 4-2 시각 113p'''
+
+n = int(input())
+cnt =0
+for h in range(n+1):
+    for m in range(60):
+        for s in range(60):
+            if '3' in str(h)+str(m)+str(s):
+                cnt +=1
+
+print(cnt)
+
+''' 실전문제2 왕실의 나이트 115p'''
+data = input()
+row = int(data[1])
+colum = int(ord(data[0])) - int(ord('a')) +1
+steps = [(-2,-1), (-1,-2), (1,-2), (-2, 1), (2, 1), (1, 2), (-1, 2), (2, -1)]
+
+result = 0
+for step in steps:
+    next_row = row + step[0]
+    next_colum = colum + step[1]
+
+    if next_row>=1 and next_row<=8 and next_colum>=1 and next_colum<=8:
+        result +=1
+
+print(result)
