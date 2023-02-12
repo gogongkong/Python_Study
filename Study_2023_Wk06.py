@@ -860,6 +860,45 @@
 #     x,y = nx, ny
 # print(x,y)
 
+# ''' 복습 왕실의 나이트'''
+# move = input()
+# cnt = 0
+# move_row = int(move[1])
+# move_colum = int(ord(move[0])) - int(ord('a')) +1
+# move_point = [(1,2), (1,-2), (-1,2), (-1,-2), (2,1), (2,-1), (-2,1), (-2,-1)]
+
+# for point in move_point:
+#     next_row = move_row + point[0]
+#     next_colum = move_colum + point[1]
+
+#     if next_row <=1 or next_row >=8 or next_colum <=1 or next_colum >=8:
+#         continue
+
+#     cnt +=1
+# print(cnt)
+
+# ''' 복습 거스름돈 '''
+# n = 1260
+# coin_type = [500, 100, 50, 10]
+# result = 0
+# while True:
+#     for coin in coin_type:
+#         result += n//coin
+#         n %=coin
+        
+#     if n == 0:
+#         break 
+# print(result)
+
+# ''' 복습 시각'''
+# N = int(input())
+# result =0
+# for h in range(N+1):
+#     for m in range(60):
+#         for s in range(60):
+#             if '3' in str(h) + str(m) + str(s):
+#                 result +=1
+# print(result)
 
 
-            
+
