@@ -65,30 +65,24 @@
 
 
 ''' 직접 풀어보기'''
-
-n,m = map(int, input().split()) # 가로 세로 공백을 구분하여 입력
-# 캐릭터의 좌표(x,y) 및 방향(direction)을 입력 받기
-
-# 공백의 행렬을 만들어 맵 초기화
+# 맵의 가로 세로 크기 입력받기
+n, m = map(int, input().split())
+# 공백의 맵 만들기
 d = [[0] * m for _ in range(n)]
+x, y, direction = list(map(int, input().split()))
+d[x][y] = 1 # 초기 위치 1로 찍어두기
 
-x, y, direction = map(int, input().split())
-d[x][y] = 1 # 처음 캐릭터의 좌표 (1,1)
-
-
-
-# 전체 맵 입력 받기
-array = []
-for i in range(n):
-    array.append(list(map(int, input().split())))
-
-# 북 동 남 서 방향관련 변수 만들기
+#북 동 남 서
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
-#방향 전환 함수 만들기
+array = [] # 실제 맵 생성
+for i in range(n):
+    array.append(list(map(int, input().split())))
+
+# 캐릭터의 방향 함수
 def turn_left():
-    global direction 
+    global direction
     direction -= 1
     if direction == -1:
         direction = 3
@@ -96,39 +90,47 @@ def turn_left():
 turn_time = 0
 count = 1
 
-# 이동 시뮬레이션 작성해보기
-
+# 시뮬레이션 시작
 while True:
     turn_left()
     nx = x + dx[direction]
     ny = y + dy[direction]
-    # 방향을 돌리고 진행방향에 바다가 없을 경우 이동
-    if d[nx][ny] == 0 and array[nx][ny] == 0: 
-        d[nx][ny] =1
+    if d[nx][ny] == 0 and array[nx][ny] == 0:
+        d[nx][ny] = 1
         x = nx
         y = ny
         count += 1
         turn_time = 0
         continue
-    # 회전했는데 진행방향에 바다가 있을경우
     else:
         turn_time += 1
-    
-    # 4면 모두 갈 곳이 없을떄
+
     if turn_time == 4:
         nx = x - dx[direction]
         ny = y - dy[direction]
-
-        # 뒤로 갈 수 있는지
-        if array[nx][ny] == 0:
+        
+        if array[nx][ny] == 1:
             x = nx
             y = ny
-        
-        #뒤가 바다로 막혀 있을경우
         else:
             break
         turn_time =0
 
-#결과 출력
 print(count)
-    
+
+''' 백준 11047번 문제'''
+# 동전 종류 N 최솟값을 출력
+# N, K 입력 N(동전의 종류) K(동전의 가치 총합)
+n, k = map(int, input().split())
+count = 0
+result = 0
+coin = []
+for i in range(n):
+    coin.append(int(input()))
+coin.sort(reverse=True)
+
+for i in coin: 
+    count += k//i
+    k = k%i
+
+print(count)
