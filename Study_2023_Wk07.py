@@ -216,3 +216,83 @@ while True:
         turn_time = 0
 
 print(count)
+
+''' 큰수의 법칙 '''
+
+# 숫자의 종류 n / 더할수있는 횟수 m / 연속해서 더할 수 있는 횟수 k 입력받기
+n, m, k = map(int, input().split())
+
+# n개의 자연수 입력받기
+num = list(map(int, input().split()))
+# 입력받은 자연수들을 내림차순으로 정렬
+num.sort(reverse=True)
+first = num[0] # 가장 큰 수 
+sec = num[1] # 두번째로 큰 수
+result = 0 # 더한 값을 저장할 변수
+while True:
+    for i in range(k):
+        if m == 0:
+            break
+        result += first
+        m -= 1
+    if m == 0:
+        break
+    
+    result += sec
+    m -= 1
+
+print(result)
+
+
+
+
+
+n, m = map(int, input().split())
+d = [[0] * m for _ in range(n)]
+x, y, direction = map(int, input().split())
+d[x][y] = 1
+array = []
+for i in range(n):
+    array.append(list(map(int, input().split())))
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+def turn_left():
+    global direction
+    direction -= 1
+    if direction == -1:
+        direction = 3
+
+count = 1
+turn_time = 0
+while True:
+    turn_left()
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    
+    if d[nx][ny] == 0 and array[nx][ny] == 0:
+        d[nx][ny] = 1
+        x = nx
+        y = ny
+        count += 1
+        turn_time = 0
+        continue
+    else:
+        turn_time += 1
+
+    if turn_time == 4:
+        nx = x - dx[direction]
+        ny = y - dy[direction]
+        if array[nx][ny] == 0:
+            x = nx
+            y = ny
+        else:
+            break
+        turn_time = 0
+
+print(count)
+
+
+''' 15일 공부 종료 16일 공부 시작 
+어설프게 문제풀이 하지말고 일단 책한권 돌리자!'''
