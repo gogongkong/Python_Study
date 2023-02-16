@@ -357,3 +357,117 @@ print(count)
 
 
 ''' 2월 17일 공부 스타트'''
+# push : 데이터를 삽입
+# pop  : 데이터를 삭제
+
+# 스택 선입 후출 or 후입 선출 예제
+stack = []
+# 삽입5 - 삽입2 - 삽입3 - 삽입7 - 삭제 - 삽입1 - 삽입4 삭제
+stack.append(5)
+stack.append(2)
+stack.append(3)
+stack.append(7)
+stack.pop()
+stack.append(1)
+stack.append(4)
+stack.pop()
+
+print(stack)
+
+# 큐 = 선입선출
+# 예제 삽5 삽2 삽3 삽7 삭제 삽1 삽4 삭제
+from collections import deque
+que = deque()
+que.append(5)
+que.append(2)
+que.append(3)
+que.append(7)
+que.popleft()
+que.append(1)
+que.append(4)
+que.popleft()
+
+print(que)
+que.reverse()
+print(que)
+
+
+# 재귀 함수
+def recursive_function(i):
+    # 100번째 출력 했을 때 종료 되도록 종료 조건 명시
+    if i == 100:
+        return
+    print(i, '번째 재귀 함수에서', i+1, '번째 재귀 함수를 호출 합니다.')
+    recursive_function(i+1)
+    print(i, '번째 재귀함수를 종료합니다.')
+
+recursive_function(1)
+
+# 팩토리얼 예제
+# 반복적으로 구현한 n!
+def factorial_iterative(n):
+    result = 1
+    # 1부터 n까지의 수 차례대로 곱하기
+    for i in range(1, n+1):
+        result *= i
+    return result
+
+# 재귀적으로 구현한 n!
+def factorial_recursive(n):
+    if n<= 1: #n이 1 이하인경우 1을 반환
+        return 1
+    # n! = n*(n-1)! 을 그대로 코드로 작성하기
+    return n * factorial_recursive(n-1)
+
+print("반복적으로 구현 : ", factorial_iterative(5))
+print("재귀적으로 구현 : ", factorial_recursive(5))
+
+''' 인접 행렬 방식'''
+INF = 999999999
+# 2차원 리스트를 이용해 인접 행렬 표현
+graph = [
+    [0, 7, 5],
+    [7, 0, INF],
+    [5, INF, 0]
+]
+print(graph)
+
+''' 인접 리스트 방식'''
+graph = [[] for _ in range(3)]
+
+#노드 0에 연결된 노드 정보 저장(노드, 거리)
+graph[0].append((1,7))
+graph[0].append((2,5))
+
+#노드 1에 연결된 노드 정보 저장(노드, 거리)
+graph[1].append((0,7))
+
+#노드 2에 연결된 노드 정보 저장(노드, 거리)
+graph[2].append((0,5))
+print( graph)
+
+# DFS 메서드 정리
+def dfs(graph, v, visited):
+    # 현재 노드 방문 처리
+    visited[v] = True
+    print(v, end = ' ')
+    # 현재 노드와 연결된 다른 노드를 재귀적으로 방문
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(graph, i, visited)
+# 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
+graph = [
+    [2,3,8],
+    [1,7],
+    [1,4,5],
+    [3,5],
+    [3,4],
+    [7],
+    [2,6,8],
+    [1,7]
+]
+# 각 노드가 방문된 정보를 리스트 자료형으로 표현(1차원 리스트)
+visited = [False] * 9
+
+# 정의된 DFS 함수 호출
+dfs(graph, 1, visited)
