@@ -296,3 +296,64 @@ print(count)
 
 ''' 15일 공부 종료 16일 공부 시작 
 어설프게 문제풀이 하지말고 일단 책한권 돌리자!'''
+
+''' 게임 개발 문제 이번엔 꼭 뿌셔보자 '''
+# 맵의 세로 N 가로 M을 입력 받기
+n, m = map(int, input().split())
+d = [[0] * m for _ in range(n)] # 가로 세로 공백의 맵 생성
+
+# 캐릭터의 좌표 x,y 방향 direction 입력 받기
+x, y, direction = map(int, input().split())
+
+# 맵의 정보 입력 받기
+maps = [] # 정보를 입력받을 공백의 리스트 생성
+for i in range(m):
+    maps.append(list(map(int, input().split()))) # 맵 입력받기
+
+# 방향은 4가지 북0 동1 남2 서3 가있음
+# 방향에 따라 입력받을 리스트 생성
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+# 왼쪽으로 회전하는 함수 만들기
+def turn_left():
+    global direction
+    direction -= 1 # 왼쪽(반시계)방향으로 회전
+    if direction == -1: # 이미 북쪽을 바라보고 있다면?
+        direction = 3 # 서쪽으로 바꿔주기
+
+#시뮬레이션 시작
+d[x][y] = 1 # 초기 위치 방문처리
+
+turn_time = 0 # 회전한 횟수
+count = 1 # 초기 위치방문처리로 인해 count 1 증가
+
+while True: # break로 탈출 전까진 계속 돌리기
+    turn_left() # 첫번째 조건 : 현위치에서 일단 왼쪽방향부터 갈곳이 있는지 탐색
+    # 현재 방향에 맞는 값을 dx, dy의 리스트에서 direction 의 값에 위치한 dx, dy값을 더해줌
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    # 이동할 곳이 있을 때
+    if d[nx][ny] == 0 and maps[nx][ny] == 0:
+        d[nx][ny] = 1 # 현위치 방문처리
+        x, y = nx, ny # 이동
+        turn_time = 0
+        count += 1
+        continue
+    else: # 이동할 곳이 없을 때 회전 횟수 1 증가
+        turn_time += 1
+
+    if turn_time == 4: # 4번 회전(4방향 모두 확인 했을 때)
+        nx = x - dx[direction] # 뒤로 한칸
+        ny = y - dy[direction]
+        if d[nx][ny] == 0 and maps[nx][ny] == 0: # 뒤에 갈곳이 있을 때
+            d[nx][ny] = 1 # 현위치 방문처리 
+            x, y = nx, ny
+            count += 1
+        else: # 갈곳이 없을 때
+            break
+
+print(count)
+
+
+''' 2월 17일 공부 스타트'''
