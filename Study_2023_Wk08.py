@@ -1,5 +1,5 @@
-''' 
-DFS 깊이 우선 탐색 
+'''
+DFS 깊이 우선 탐색
 인접 행렬 : 2차원 배열로 그래프의 연결 관계를 표현하는 방식
 인접 리스트 : 리스트로 그래프의 연결관예를 표현하는 방식
 '''
@@ -129,7 +129,7 @@ def dfs(x,y):
     if x<=-1 or x>=n or y<=-1 or y>=m:
         return False
     # 현재 노드를 아직 방문하지 않았다면
-    if graph[x][y] == 0: 
+    if graph[x][y] == 0:
         # 해당노드 방문 처리
         graph[x][y] = 1
         # 상 하 좌 우의 위치도 모두 재귀적으로 호출
@@ -144,14 +144,14 @@ def dfs(x,y):
 result = 0
 for i in range(n):
     for j in range(m):
-        # 현재 위치에서 DFS 수행 
+        # 현재 위치에서 DFS 수행
         if dfs(i,j) == True:
             result +=1
 
 print(result)
 
-''' 
-DFS / BFS 
+'''
+DFS / BFS
 DFS = 한쪽만 파다 돌아오는거
 BFS = 뻗어나가는거
 '''
@@ -200,4 +200,243 @@ while True:
 
 print(cnt)
 
+''' 왕실의 나이트 '''
+data = input()
+row = int(data[1])
+colum = int(ord(data[0])) - int(ord('a')) +1
 
+steps = [(-2, -1), (-1, -2), (1, -2), (2, -1), (2, 1), (1, 2), (-1, 2), (-2, 1)]
+
+cnt = 0
+for step in steps:
+    step_row = row+step[0]
+    step_colum = colum+step[1]
+    if step_row >= 1 and step_row <= 8 and step_colum >= 1 and step_colum <= 8:
+        cnt += 1
+
+print(cnt)
+
+
+''' 음료수 얼려 먹기 예제 '''
+
+# 얼음틀의 세로길이N, 가로길이M
+n, m = map(int, input().split())
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+    def dfs(x, y):
+        # 주어진 범위를 벗어나는 경우에는 즉시 종료
+        if x <= -1 or x >= n or y <= -1 or y >= m:
+            return False
+        if arr[x][y] == 0:
+            # 해당노드 방문처리
+            arr[x][y] = 1
+            # 상 하 좌 우
+            dfs(x - 1, y)
+            dfs(x, y - 1)
+            dfs(x + 1, y)
+            dfs(x, y + 1)
+            return True
+        return False
+
+# 모든 위치에 대해 음료수 채우기
+result = 0
+for x in range(n):
+    for y in range(m):
+        # 현재 위치에 대해 dfs 수행
+        if dfs(x, y) == True:
+            result += 1
+
+print(result) # 결과 출력
+n, m = map(int, input().split())
+
+''' 미로 탈출 152p'''
+from collections import deque
+# N,M 크기의 직사각형 입력 받기
+n, m = map(int, input().split())
+
+# 미로 입력받기
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+# 이동할 네 방향 정의 ( 상 하 좌 우 )
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+# BFS 소스 구현
+def bfs(x, y):
+    # 큐 구현을 위해 deque 라이브러리 사용
+    queue = deque()
+    queue.append((x,y))
+    # 큐가 빌 때까지 반복
+    while queue:
+        x, y = queue.popleft()
+        # 현재 위치에서 네 방향으로의 위치 확인
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            # 미로 찾기 공간을 벗어난 경우 무시
+            if nx <0 or ny <0 or nx >=n or ny >=m:
+                continue
+            # 벽인 경우 무시
+            if arr[nx][ny] == 0:
+                continue
+            # 해당 노드를 처음 방문하는 경우에만 최단 거리 기록
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y] + 1
+                queue.append((nx, ny))
+    # 가장 오른쪽 아래까지의 최단 거리 반환
+    return arr[n-1][m-1]
+
+# BFS를 수행한 결과 출력 
+print(bfs(0,0))
+
+
+''' 음료수 얼려먹기 다시 풀어보기 '''
+# 얼음틀 가로 세로 n, m 입력 받기
+n, m = map(int, input().split())
+# 얼음틀 입력
+arr =[]
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+# dfs 함수 만들기
+def dfs(x, y):
+    if x <=-1 or x >= n or y<=-1 or y>= m:
+        return False
+    
+    if arr[x][y] == 0:
+        arr[x][y] = 1
+        dfs(x -1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        return True
+    return False
+
+result = 0
+for i in range(n):
+    for j in range(m):
+        if dfs(i,j) == True:
+            result +=1
+print(result)
+
+
+
+n, m = map(int, input().split())
+
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+def dfs(x, y):
+    if x <=-1 or x>=n or y<=-1 or y>=m:
+        return False
+
+    if arr[x][y] == 0:
+        arr[x][y] = 1
+        dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        return True
+    
+    return False
+
+result = 0
+for i in range(n):
+    for j in range(m):
+        if dfs(i, j) == True:
+            result += 1
+print(result)
+
+
+''' 그리디 거스름돈 다시 풀어보기 '''
+n = 1260 
+coin_type = [500, 100, 50, 10]
+count = 0
+for coin in coin_type:
+    count += n // coin
+    n %= coin
+
+print(count)
+
+''' 큰수의 법칙 '''
+n, m , k = map(int, input().split())
+data = list(map(int, input().split()))
+data.sort(reverse=True)
+first = data[0]
+sec = data[1]
+
+result = 0
+while True:
+    if m != 0:
+        for i in range(k):
+            result += first
+            m -= 1
+
+        result += sec
+        m -= 1 
+    elif m == 0:
+        break
+
+print(result)
+
+''' dfs 연습문제 '''
+
+n , m = map(int, input().split())
+
+arr= []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+def dfs(x,y):
+    if x<=-1 or x>=n or y<=-1 or y>=m:
+        return False
+    if arr[x][y] == 0:
+        arr[x][y] = 1
+        dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+        return True
+    
+    return False
+
+result = 0
+for i in range(n):
+    for j in range(m):
+        if dfs(i, j) == True:
+            result += 1
+
+print(result)
+
+''' 미로탈출 '''
+from collections import deque
+n, m = map(int, input().split())
+
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x,y):
+    queue = deque()
+    queue.append((x,y))
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+            if nx < 0 or nx>=n or ny<0 or ny>=m:
+                continue
+            if arr[nx][ny] == 0:
+                continue
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y] + 1
+                queue.append((nx,ny))
+    return arr[n-1][m-1]
+print(bfs(0,0))
