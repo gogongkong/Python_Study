@@ -440,3 +440,132 @@ def bfs(x,y):
                 queue.append((nx,ny))
     return arr[n-1][m-1]
 print(bfs(0,0))
+
+''' 2월 22일 공부 시작'''
+
+# 음료수 얼려먹기 실전문제
+
+# 얼음틀의 세로n 가로m 입력받기
+n, m = map(int, input().split())
+
+# 얼음틀의 형태 입력 받기
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+def dfs(x, y):
+    #틀을 벗어난 경우
+    if x<=-1 or x>=n or y <=-1 or y>=m:
+        return False
+    if arr[x][y] == 0:
+        arr[x][y] = 1
+        dfs(x+1, y)
+        dfs(x,y+1)
+        dfs(x-1, y)
+        dfs(x, y-1)
+        return True
+    return False
+result = 0
+for i in range(n):
+    for j in range(m):
+        if arr[i][j] == False:
+            dfs(i,j)
+            result += 1
+print(result)   
+
+''' 실전문제 미로탈출 '''
+from collections import deque
+
+n, m = map(int, input().split())
+arr = []
+for i in range(n):
+    arr.append(list(map(int,input())))
+
+# 상 하 좌 우
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x, y):
+    queue = deque()
+    queue.append((x,y))
+
+    #큐가 빌때까지 반복
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+            # 공간을 벗어난 경우
+            if nx<=-1 or nx >=n or ny<=-1 or ny>=m:
+                continue
+            #벽인 경우 무시
+            if arr[nx][ny] == 0:
+                continue
+            # 처음 방문하는 노드의 경우
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y]+1
+                queue.append((nx,ny))
+    return arr[n-1][m-1]
+print(bfs(0,0))
+
+
+
+''' 답안 없이 100% 자력으로 풀어보기 '''
+from collections import deque
+n, m = map(int, input().split())
+
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x,y):
+    queue = deque()
+    queue.append((x,y))
+
+    while queue:
+        x, y = queue.popleft()
+        
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+
+            if nx <= -1 or nx>=n or ny <= -1 or ny >= m:
+                continue
+            if arr[nx][ny] == 0:
+                continue
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y] +1
+                queue.append((nx,ny))
+    return arr[n-1][m-1]
+
+print(bfs(0,0))
+
+''' DFS 메서드 정의'''
+def dfs (graph, v, visited):
+    visited[v] = True # 현재 노드 방문 처리
+    print(v, end=' ')
+    # 현재 노드와 연결된 다른 노드를 재귀적으로 방문
+    for i in graph[v]:
+        if not visited[i]:
+            dfs(graph, v, visited)
+
+# 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
+graph = [
+    [],
+    [2, 3, 8],
+    [1, 7],
+    [1, 4, 5],
+    [3, 5],
+    [3, 4],
+    [7],
+    [2, 6, 8],
+    [1, 7]
+]
+
+# 각 노드가 방문된 정보를 리스트 자료형으로 표현
+visited = [False] * 9
+
+# 정의된 DFS 함수 호출
+dfs(graph, 1, visited)
