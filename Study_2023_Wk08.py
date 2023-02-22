@@ -569,3 +569,104 @@ visited = [False] * 9
 
 # 정의된 DFS 함수 호출
 dfs(graph, 1, visited)
+
+''' BFS '''
+
+from collections import deque
+
+# BFS 메서드 정의
+def bfs(graph, start, visited):
+    # 큐(queue)구현을 위해 deque 라이브러리 사용
+    queue = deque([start])
+    # 현재 노드 방문 처리
+    visited[start] = True
+    # 큐가 빌때까지 반복
+    while queue:
+        # 큐에서 하나의 원소를 뽑아 출력
+        v = queue.popleft()
+        print(v, end=' ')
+        # 해당 원소와 연결된, 아직 방문하지 않은 원소들을 큐에 삽입
+        for i in graph[v]:
+            if not visited[i]:
+                queue.append(i)
+                visited[i] = True
+
+# 각 노드가 연결된 정보를 리스트 자료형으로 표현(2차원 리스트)
+graph = [
+    [],
+    [2, 3, 8],
+    [1, 7],
+    [1, 4, 5],
+    [3, 5],
+    [3, 4],
+    [7],
+    [2, 6, 8],
+    [1, 7]
+]
+
+# 각 노드가 방문된 정보를 리스트 자료형으로 표현(1차원 리스트)
+visited = [False] * 9
+bfs(graph, 1, visited)
+
+
+''' 음료수 얼려 먹기 '''
+n, m = map(int, input().split())
+
+arr = []
+for _ in range(n):
+    arr.append(list(map(int, input())))
+
+def dfs(x,y):
+    if x<=-1 or x>=n or y<=-1 or y>=m:
+        return False
+    if arr[x][y] == 0:
+        arr[x][y] = 1
+        dfs(x-1, y)
+        dfs(x, y-1)
+        dfs(x+1, y)
+        dfs(x, y+1)
+    return False
+
+result =0
+for i in range(n):
+    for j in range(m):
+        if arr[i][j] == 0:
+            dfs(i,j)
+            result +=1
+
+print(result)
+
+''' 미로 탈출 '''
+from collections import deque
+n,m = map(int, input().split())
+
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input())))
+
+dx = [-1, 1, 0, 0]
+dy = [0, 0, -1, 1]
+
+def bfs(x, y):
+    queue = deque()
+    queue.append((x,y))
+
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x+dx[i]
+            ny = y+dy[i]
+            
+            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+                continue
+            if arr[nx][ny] == 0:
+                continue
+            if arr[nx][ny] == 1:
+                arr[nx][ny] = arr[x][y] +1
+                queue.append((nx,ny))
+    
+    return arr[n-1],[m-1]
+
+print(bfs(0,0))
+    
+
