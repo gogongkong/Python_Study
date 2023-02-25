@@ -1016,3 +1016,104 @@ def bfs(x, y):
     return arr[n - 1][m - 1]
 
 print(bfs(0,0))
+
+
+''' 
+정렬
+데이터를 특정한 기준에 따라서 순서대로 나열하는 것
+선택정렬, 삽입정렬, 퀵정렬, 계수정렬을 많이 사용함
+기본 정렬 라이브러리도 존재
+'''
+
+num = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+print(num)
+# 오름차순 정렬
+num.sort()
+print(num)
+# 내림차순 정렬
+num.sort(reverse= True)
+print(num)
+
+'''
+선택정렬
+가장 작은것을 맨 앞에 있는 데이터와 바꾸고 그 다음 작은 데이터를 선택해 두번째 데이터와 바꾸는것
+'''
+arr = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+
+for i in range(len(arr)):
+    min_index = i # 가장 작은 원소의 인덱스
+    for j in range(i+1, len(arr)):
+        if arr[min_index] > arr[j]:
+            min_index = j
+    arr[i], arr[min_index] = arr[min_index], arr[i] # 스와프
+
+print(arr)
+
+''' 스와프 소스 코드 '''
+array = [3, 5]
+array[0], array[1] = array[1], array[0]
+print(array)
+
+'''
+삽입정렬 소스코드
+두번째 데이터부터 시작 - 첫번째 데이터는 그 자체로 정렬이 되어 있다고 생각하기 때문에
+'''
+arr = [7, 5, 9, 0, 3, 1, 6, 2, 4, 8]
+for i in range(1, len(arr)):
+    for j in range(i, 0, -1): # i부터 하나씩 감소하는 방식
+        if arr[j] > arr[j-1]: # 한 칸씩 왼쪽으로 이동
+            arr[j], arr[j-1] = arr[j-1], arr[j]
+        else: # 자기보다 작은 데이터를 만나면 그 위치에서 멈춤
+            break
+print(arr)
+
+
+'''
+퀵 정렬
+'''
+
+arr = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+
+def quick_sort(arr, start, end):
+    if start >= end: #원소가 1개인 경우 종료
+        return
+    pivot = start # 피벗은 첫 번째 원소
+    left  = start +1
+    right = end
+    while left <= right:
+        # 피벗보다 큰 데이터를 찾을 때 까지 반복
+        while left <= end and arr[left] <= arr[pivot]:
+            left += 1
+        # 피벗보다 작은 데이터를 찾을 때 까지 반복
+        while right > start and arr[right] >= arr[pivot]:
+            right -= 1
+        if left > right: # 엇갈렸다면 작은 데이터와 피벗을 교체
+            arr[right], arr[pivot] = arr[pivot], arr[right]
+        else:
+            arr[left], arr[right] = arr[right], arr[left]
+    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬 수햄
+    quick_sort(arr, start, right -1)
+    quick_sort(arr, right +1, end)
+
+quick_sort(arr, 0, len(arr)-1)
+print(arr)
+
+
+'''파이썬의 장점을 살린 퀵 정렬 소스 코드'''
+arr = [5, 7, 9, 0, 3, 1, 6, 2, 4, 8]
+
+def quick_sort(arr):
+    # 리스트가 하나 이하의 원소만을 담고 있다면 종료
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[0] # 피벗은 첫 번째 원소
+    tail = arr[1:] # 피벗을 제외한 리스트
+
+    left_side = [x for x in tail if x<= pivot] # 분할된 왼쪽 부분
+    right_side = [x for x in tail if x > pivot] # 분할된 오른쪽 부분
+
+    # 분할 이후 왼쪽 부분과 오른쪽 부분에서 각각 정렬을 수행하고, 전체 리스트를 반환
+    return quick_sort(left_side) + [pivot] + quick_sort(right_side)
+
+print(quick_sort(arr))
