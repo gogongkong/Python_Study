@@ -1117,3 +1117,58 @@ def quick_sort(arr):
     return quick_sort(left_side) + [pivot] + quick_sort(right_side)
 
 print(quick_sort(arr))
+
+
+'''
+계수정렬
+특정 조건에 부합할 때만 사용가능하지만 매우 빠른 정렬 알고리즘
+단, 가장 큰 데이터와 작은 데이터의 차이가 크면 안됨
+모든 벙위를 담을 수 있는 크기의 리스트를 선언해야 하기 때문
+'''
+
+# 계수정렬 예제
+# 모든 원소의 값이 0보다 크다고 가정
+arr = [ 7, 5, 9, 0, 3, 1, 6, 2, 9, 1, 4, 8, 0, 5, 2]
+# 모든 범위를 포함하는 리스트를 선언(모든 값은 0으로 초기화)
+count = [0] * (max(arr)+1)
+
+for i in range(len(arr)):
+    count[arr[i]] += 1 #각 데이터에 해당하는 인덱스의 값 증가
+
+for i in range(len(count)): # 리스트에 기록된 정렬 정보 확인
+    for j in range(count[i]):
+        print(i, end= ' ') # 띄어쓰기를 구분으로 등장한 횟수 만큼 인덱스 출력
+
+'''
+파이썬 기본 정렬 라이브러리
+sorted() 함수를 제공 - 병합정렬 방식을 사용함 퀵정렬보다는 느리지만 최악의 경우에도 O(NlogN)을 보장
+'''
+
+# sorted 소스코드
+arr = [7,5,9,0,3,1,6,2,4,8]
+result = sorted(arr)
+print(result)
+
+'''
+리스트 변수가 하나 있을때 내부원소를 바로 정렬가능
+리스트 객체의 내장함수인 sort() 사용 - 별도의 정렬된 리스트가 반환되지 않고 내부 원소가 바로 정렬
+'''
+arr = [7,5,9,0,3,1,6,2,4,8]
+arr.sort()
+print(arr)
+
+'''
+sorted(), sort()를 이용할 때 key 매개변수를 입력 받을 수 있음
+key값으로는 하나의 함수가 들어가야 하며 이는 정렬의 기준이 됨
+EX : 리스트의 데이터가 튜플로 구성되어 있을 때 각 데이터의 두번째 원소를 기준으로 설정하는 경우
+'''
+
+arr = [('바나나', 2), ('사과', 5), ('당근',3)]
+def setting(data):
+    return data[1]
+
+#result = sorted(arr, key= setting)
+#print(result)
+arr.sort(key= setting)
+print(arr)
+
