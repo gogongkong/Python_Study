@@ -67,7 +67,7 @@ while start <= end:
         if x > mid:
             total += x - mid 
         
-        # 떡의 양이 부족한 경우 더 많이 자르기(왼쪽 부분 탐색)
+    # 떡의 양이 부족한 경우 더 많이 자르기(왼쪽 부분 탐색)
     if total < m:
         end = mid - 1
     # 떡의 양이 충분한 경우 덜 자르기
