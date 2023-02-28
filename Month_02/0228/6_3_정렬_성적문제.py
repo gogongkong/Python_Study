@@ -1,5 +1,3 @@
-
-
 '''
 문제
 N명의 학생의 성적 정보가 주어진다. 
@@ -21,32 +19,15 @@ N명의 학생의 성적 정보가 주어진다.
 이순신 홍길동
 '''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 풀이
-
 n = int(input())
-arr = []
-for i in range(n):
-    data = input().split()
-    arr.append((data[0], int(data[1])))
 
-arr = sorted(arr, key= lambda student: student[1])
+arr= []
+for i in range(n):
+    arr.append(list(input().split()))
+
+arr = sorted(arr, key=lambda student : student[1])
 
 for student in arr:
-    print(student[0], end=' ')
+    print(student[0], end = ' ')
+
+

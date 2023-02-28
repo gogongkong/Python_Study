@@ -302,4 +302,57 @@ def search(array, target, start, end):
 for target in c_stack:
     search(stack, target, 0, n-1)
 
+'''4-4 게임개발'''
+
+n,m = map(int, input().split())
+x, y, direction = map(int, input().split())
+
+d = [[0]*n for _ in range(m)]
+# 초기 위치 방문처리
+d[x][y] = 1
+
+# 맵 입력
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input().split())))
+
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+# 회전 함수
+def turn_left():
+    global direction
+    direction -= 1
+    if direction == -1:
+        direction = 3
+
+turn_time = 0
+count = 1 # 초기 위치 방문 처리로 1 증가
+
+while True:
+    turn_left()
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    if d[nx][ny] == 0 and arr[nx][ny] == 0:
+        d[nx][ny] = 1
+        x ,y = nx, ny
+        turn_time = 0
+        count += 1   
+    else:
+        turn_time +=1        
+    
+    if turn_time == 4:
+        nx = x - dx[direction]
+        ny = y - dy[direction]
+        if arr[nx][ny] == 0:
+            x, y = nx, ny
+        else:
+            break
+        turn_time = 0
+    
+print(count)
+
+
+
+    
 
