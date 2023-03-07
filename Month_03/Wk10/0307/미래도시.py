@@ -53,45 +53,110 @@ M + 2번째 줄에는 X와 K가 공백으로 구분되어 차례대로 주어진
 <출력 예시 2>
 -1'''
 
+# 직접 풀어보기
 
-INF = int(1e9) # 무한 설정
+INF = int(1e9) # 무한을 정의 
 
-n, m = map(int, input().split()) # 노드 갯수 및 간선갯수 입력
+# 전체 회사의 갯수 N, 경로의 갯수 M 입력
+n, m = map(int, input().split())
 
-# 2차원 그래프 무한으로 초기화
+# 2차원 리스트 초기화
 arr = [[INF] * (n+1) for _ in range(n+1)]
 
-# 자기자신으로 가는 비용 0으로 초기화
+# 자기 자신으로 가는경로는 0으로 초기화
 for a in range(1, n+1):
-    for b in range(1, n+1):
+    for b in range(1,n+1):
         if a == b:
             arr[a][b] = 0
 
-# 간선의 정보를 입력받아 해당 값으로 초기화
+# 연결된 두회사의 번호 입력
 for _ in range(m):
-    # A와 B가 서로에게 가는 비용은 1으로 설정
     a, b = map(int, input().split())
+    # a->b, b->a의 경우 비용 1 설정
     arr[a][b] = 1
     arr[b][a] = 1
 
-# 거쳐갈 노드 X와 최종 목적지 노드 K 입력받기
+# 목적지 x, 중간 경유지 k 입력
 x, k = map(int, input().split())
 
-# 점화식에 따라 플로이드 워셜 수행
+# 플로이드 워셜 알고리즘 적용
+
 for k in range(1, n+1):
     for a in range(1, n+1):
         for b in range(1, n+1):
             arr[a][b] = min(arr[a][b], arr[a][k] + arr[k][b])
 
-# 수행된 결과 출력
+# 1 -> k로 가는 최단거리 distance에 저장
 distance = arr[1][k] + arr[k][x]
 
-# 도달할 수 없는경우 -1 출력
-if distance >= INF:
-    print('-1')
-
-# 도달 할 수 있다면, 최단거리 출력
+if distance >= INF: # k로 가는 길이 없을 때
+    print(-1)
 else:
-    print(distance)
+    print(distance) # 최단경로가 존재할 때
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# INF = int(1e9) # 무한 설정
+
+# n, m = map(int, input().split()) # 노드 갯수 및 간선갯수 입력
+
+# # 2차원 그래프 무한으로 초기화
+# arr = [[INF] * (n+1) for _ in range(n+1)]
+
+# # 자기자신으로 가는 비용 0으로 초기화
+# for a in range(1, n+1):
+#     for b in range(1, n+1):
+#         if a == b:
+#             arr[a][b] = 0
+
+# # 간선의 정보를 입력받아 해당 값으로 초기화
+# for _ in range(m):
+#     # A와 B가 서로에게 가는 비용은 1으로 설정
+#     a, b = map(int, input().split())
+#     arr[a][b] = 1
+#     arr[b][a] = 1
+
+# # 거쳐갈 노드 X와 최종 목적지 노드 K 입력받기
+# x, k = map(int, input().split())
+
+# # 점화식에 따라 플로이드 워셜 수행
+# for k in range(1, n+1):
+#     for a in range(1, n+1):
+#         for b in range(1, n+1):
+#             arr[a][b] = min(arr[a][b], arr[a][k] + arr[k][b])
+
+# # 수행된 결과 출력
+# distance = arr[1][k] + arr[k][x]
+
+# # 도달할 수 없는경우 -1 출력
+# if distance >= INF:
+#     print('-1')
+
+# # 도달 할 수 있다면, 최단거리 출력
+# else:
+#     print(distance)
 
 
