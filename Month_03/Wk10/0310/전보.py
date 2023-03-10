@@ -32,68 +32,101 @@
 2 4
 '''
 
+# import heapq
+# import sys
+# input = sys.stdin.readline
+# INF = int(1e9)
+
+# # 도시의 갯수 n, 통로(간선)의 갯수, 메세지를 보내는 도시 start
+# n, m, start = map(int, input().split())
+
+# # 각 노드에 연결되어 있는 노드에 대한 정보를 담는 리스트를 만들기
+# arr = [[] for i in range(n+1)]
+# # 최단 거리 테이블을 모두 무한으로 초기화
+# distance = [INF] * (n+1)
+
+# # 모든 간선 정보를 입력받기
+# for _ in range(m):
+#     a, b, c = map(int,input().split())
+#     # a번 노드에서 b번 노드로 가는 비용이 c라는 의미
+#     arr[a].append((b, c))
+
+# def dijkstra(start):
+#     q = []
+#     heapq.heappush(q, (0,start))
+#     distance[start] = 0
+#     while q:
+#         # 가장 최단거리가 짧은 노드에 대한 정보 꺼내기
+#         dist, now = heapq.heappop(q)
+#         # 이미 처리된 노드라면 무시
+#         if dist > distance[now]:
+#             continue
+#         # 현재 노드와 연결된 인접한 노드들을 확인
+#         for i in arr[now]:
+#             cost = dist + i[1]
+#             # 현재 노드를 거쳐서, 다른 노드로 이동하는 거리가 짧은 경우
+#             if cost < distance[i[0]]:
+#                 distance[i[0]] = cost
+#                 heapq.heappush(q,(cost,i[0]))
+# dijkstra(start)
+
+# # 도달할 수 있는 노드의 갯수
+# count = 0
+# # 도달할 수 있는 노드 중 가장 멀리 있는 노드와의 최단거리
+# max_distance = 0
+# for d in distance:
+#     # 도달할 수 있는 노드의 경우
+#     if d != INF:
+#         count += 1
+#         max_distance = max(max_distance, d)
+    
+
+# # 시작 노드 제외
+# print(count -1, max_distance)
 
 
-
-
-
-
-
-
-
-
-
-
-
-#풀이
+# 두번째 풀어보기
 import heapq
 import sys
 input = sys.stdin.readline
 INF = int(1e9)
 
-# 도시의 갯수 n, 통로(간선)의 갯수, 메세지를 보내는 도시 start
+# 노드의 갯수 n 간선의 갯수 m 시작노드 start
 n, m, start = map(int, input().split())
-
-# 각 노드에 연결되어 있는 노드에 대한 정보를 담는 리스트를 만들기
+# 노드의 갯수 만큼 리스트 초기화
 arr = [[] for i in range(n+1)]
-# 최단 거리 테이블을 모두 무한으로 초기화
 distance = [INF] * (n+1)
 
-# 모든 간선 정보를 입력받기
+# 간선의 갯수만큼 간선의 정보 입력
 for _ in range(m):
     a, b, c = map(int,input().split())
-    # a번 노드에서 b번 노드로 가는 비용이 c라는 의미
-    arr[a].append((b, c))
+    arr[a].append((b,c)) # A에서 B로 가는 비용이 C라는 의미
 
 def dijkstra(start):
     q = []
-    heapq.heappush(q, (0,start))
+    heapq.heappush(q, (0, start))
     distance[start] = 0
-    while q:
-        # 가장 최단거리가 짧은 노드에 대한 정보 꺼내기
+    while q: # q가 빌때 까지 라는 뜻
         dist, now = heapq.heappop(q)
-        # 이미 처리된 노드라면 무시
+        # 현재 노드가 이미 처리된 노드이거나 더 짧으면 distance[now]는 dist보다 작을것이다.
         if dist > distance[now]:
             continue
-        # 현재 노드와 연결된 인접한 노드들을 확인
+        # 노드 하나씩 비교해보기
         for i in arr[now]:
             cost = dist + i[1]
-            # 현재 노드를 거쳐서, 다른 노드로 이동하는 거리가 짧은 경우
+            # 계산된 비용이 현재 노드에 기록된 비용보다 작으면
             if cost < distance[i[0]]:
                 distance[i[0]] = cost
-                heapq.heappush(q,(cost,i[0]))
+                heapq.heappush(q, (cost, i[0]))
 dijkstra(start)
 
-# 도달할 수 있는 노드의 갯수
 count = 0
-# 도달할 수 있는 노드 중 가장 멀리 있는 노드와의 최단거리
 max_distance = 0
 for d in distance:
-    # 도달할 수 있는 노드의 경우
     if d != INF:
         count += 1
         max_distance = max(max_distance, d)
-    
 
-# 시작 노드 제외
-print(count -1, max_distance)
+print(count-1, max_distance)
+
+
