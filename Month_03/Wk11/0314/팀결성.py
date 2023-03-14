@@ -26,39 +26,55 @@
 0 4 2
 0 1 1
 1 1 1
-<출력 예시>
+<출력 예시> 
 NO
 NO
 YES
 '''
 
+# def find_parent(parent, x):
+#     if parent[x] != x:
+#         parent[x] = find_parent(parent, parent[x])
+#     return parent[x]
+
+# def union_parent(parent, a, b):
+#     a = find_parent(parent, a)
+#     b = find_parent(parent, b)
+#     if a < b:
+#         parent[b] = a
+#     else:
+#         parent[a] = b
+
+# # n, m 입력 받기
+# n, m = map(int, input().split())
+# parent = [0] * (n+1) # 부모테이블 초기화
+
+# for i in range(n+1):
+#     parent[i] = i # 부모테이블 초기화
+
+# for i in range(m):
+#     oper, a, b = map(int, input().split()) 
+#     # oper = 0 --> 합치기(union)연산
+#     if oper == 0:
+#         union_parent(parent, a, b)
+#     elif oper == 1:
+#         if find_parent(parent, a) == find_parent(parent, b):
+#             print('yes')
+#         else:
+#             print('no')
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-# 풀이
-# 부모노드 찾는 함수
+# 다시 풀어보기
 def find_parent(parent, x):
     if parent[x] != x:
         parent[x] = find_parent(parent, parent[x])
     return parent[x]
 
-# union 함수
 def union_parent(parent, a, b):
-    find_parent(parent, a)
-    find_parent(parent, b)
-    if a<b:
+    a = find_parent(parent, a)
+    b = find_parent(parent, b)
+    if a < b:
         parent[b] = a
     else:
         parent[a] = b
@@ -66,16 +82,19 @@ def union_parent(parent, a, b):
 n, m = map(int, input().split())
 parent = [0] * (n+1)
 
-for i in range(0, n+1):
+for i in range(n+1):
     parent[i] = i
 
-# 각 연산 확인
+data = []
+
 for i in range(m):
     oper, a, b = map(int, input().split())
-    # 합집합(union)인 경우 
+    data.append((oper, a, b))
+
+for data1 in data:
+    oper, a, b = data1
     if oper == 0:
         union_parent(parent, a, b)
-    # 찾기(find) 연산인 경우
     elif oper == 1:
         if find_parent(parent, a) == find_parent(parent, b):
             print('yes')

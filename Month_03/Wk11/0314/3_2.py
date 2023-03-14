@@ -12,53 +12,26 @@
 46
 '''
 
+n, m ,k = map(int, input().split())
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#풀이
-n, m, k = map(int, input().split())
 data = list(map(int, input().split()))
 
 data.sort(reverse= True)
+
 first = data[0]
 sec = data[1]
-
 result = 0
 
-while True:
-    if m == 0:
-        break
+while m:
     for i in range(k):
         result += first
         m -= 1
-
     result += sec
     m -= 1
-
+   
 print(result)
+
+
+
+
+
