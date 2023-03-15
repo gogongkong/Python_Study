@@ -44,15 +44,16 @@ N × M 크기의 얼음 틀이 있다. 구멍이 뚫려 있는 부분은 0,
 [출력 예시2]
 8
 '''
-
+# 얼음틀의 크기  n,m 입력
 n,m = map(int, input().split())
 
-arr= []
+# 얼음틀의 형태 입력
+arr = []
 for i in range(n):
     arr.append(list(map(int, input())))
 
 def dfs(x,y):
-    if x <= -1 or y <= -1 or x >=n or y >= m:
+    if x <=-1 or y <= -1 or x >=n or y>= m:
         return False
     if arr[x][y] == 0:
         arr[x][y] = 1
@@ -62,10 +63,10 @@ def dfs(x,y):
         dfs(x,y+1)
         return True
     return False
-
-result = 0
+count = 0
 for x in range(n):
     for y in range(m):
         if dfs(x,y) == True:
-            result += 1
-print(result)
+            count +=1
+
+print(count)

@@ -58,23 +58,27 @@ B는 서쪽으로부터 떨어진 칸의 개수이다.
 출력 예시
 3
 '''
-# 세로 n  가로 m 입력 받기
+
+# 맵의 가로와 세로 크기 입력
 n, m = map(int, input().split())
-# 좌표, 방향 입력받기
+
+# 캐릭터의 좌표와 방향 입력
 x, y, direction = map(int, input().split())
 
-d = [[0] * (m) for _ in range(n)]
-d[x][y] == 1
-arr = []
-for i in range(n):
-    arr.append(list(map(int, input().split())))
-
+# 왼쪽으로 회전하는 함수 작성
 def turn_left():
     global direction
     direction -= 1
     if direction == -1:
         direction = 3
-    
+
+d= [[0] * m for _ in range(n)]
+d[x][y] = 1
+
+arr = []
+for i in range(n):
+    arr.append(list(map(int, input().split())))
+
 dx = [-1, 0, 1, 0]
 dy = [0, 1, 0, -1]
 
@@ -83,21 +87,24 @@ count = 1
 
 while True:
     turn_left()
-    nx = x+dx[direction]
-    ny = y+dy[direction]
-    if arr[nx][ny] == 0 and d[nx][ny] == 0:
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    if arr[nx][ny] == 0 and d[nx][ny] == 0 :
         arr[nx][ny] = 1
-        x,y = nx, ny
+        turn_time = 0
         count += 1
+        x,y = nx,ny
     else:
         turn_time += 1
     
     if turn_time == 4:
-        nx = x-dx[direction]
-        ny = y-dy[direction]
-        if arr[nx][ny] == 0:
-            x,y = nx, ny
+        nx = x - dx[direction]
+        ny = y - dy[direction]
+        if arr[nx][ny] == 0 and d[nx][ny] == 0 :
+            x, y = nx, ny
+            count += 1
+            break
         else:
             break
-        turn_time = 0
+
 print(count)
