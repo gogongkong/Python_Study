@@ -52,36 +52,99 @@ M + 2번째 줄에는 X와 K가 공백으로 구분되어 차례대로 주어진
 
 <출력 예시 2>
 -1'''
-INF = int(1e9) # 무한 설정
-
-# 전체 회사(노드)의 갯수 n 경로(간선)의 갯수 m
-n,m = map(int,input().split())
+INF = int(1e9)
+n, m = map(int,input().split())
 
 arr = [[INF] * (n+1) for _ in range(n+1)]
-
-for a in range(1, n+1):
-    for b in range(1, n+1):
-        if a==b:
+for a in range(n+1):
+    for b in range(n+1):
+        if a == b:
             arr[a][b] = 0
 
-# m+1개의 연결된 두 회사의 번호
-for _ in range(m):
+for i in range(1,m+1):
     a, b = map(int, input().split())
     arr[a][b] = 1
     arr[b][a] = 1
 
-# 거쳐갈 노드 x와 최종 목적지 노드 k 입력받기
 x, k = map(int, input().split())
 
-# 플로이드 워셜
 for k in range(1, n+1):
     for a in range(1, n+1):
         for b in range(1, n+1):
-            arr[a][b] = min(arr[a][b], arr[a][k] + arr[k][b])
+            arr[a][b] = min(arr[a][b], arr[a][k]+arr[k][b])
 
-distance = arr[1][k] + arr[x][k]
 
-if distance == INF:
+result = arr[1][k] + arr[k][x]
+
+if result == INF:
     print(-1)
 else:
-    print(distance)
+    print(result)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# INF = int(1e9) # 무한 설정
+
+# # 전체 회사(노드)의 갯수 n 경로(간선)의 갯수 m
+# n,m = map(int,input().split())
+
+# arr = [[INF] * (n+1) for _ in range(n+1)]
+
+# for a in range(1, n+1):
+#     for b in range(1, n+1):
+#         if a==b:
+#             arr[a][b] = 0
+
+# # m+1개의 연결된 두 회사의 번호
+# for _ in range(m):
+#     a, b = map(int, input().split())
+#     arr[a][b] = 1
+#     arr[b][a] = 1
+
+# # 거쳐갈 노드 x와 최종 목적지 노드 k 입력받기
+# x, k = map(int, input().split())
+
+# # 플로이드 워셜
+# for k in range(1, n+1):
+#     for a in range(1, n+1):
+#         for b in range(1, n+1):
+#             arr[a][b] = min(arr[a][b], arr[a][k] + arr[k][b])
+
+# distance = arr[1][k] + arr[x][k]
+
+# if distance == INF:
+#     print(-1)
+# else:
+#     print(distance)
