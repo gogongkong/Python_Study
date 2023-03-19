@@ -57,7 +57,7 @@ graph = [[] for i in range(v+1)]
 # 각 강의 시간을 0으로 초기화
 time = [0] * (v+1)
 
-# 방향그래프의 모든 간선 정보를 입력바딕
+# 방향그래프의 모든 간선 정보를 입력받기
 for i in range(1, v+1):
     data = list(map(int, input().split()))
     time[i] = data[0] # 첫 번째 수는 시간 정보를 담고 있음
