@@ -47,48 +47,38 @@ N개의 강의에 대해 수강하기까지 걸리는 최소 시간을 한 줄�
 from collections import deque
 import copy
 
+v = int(input()) # 노드의 갯수 입력받기
 
-# 노드의 갯수 입력받기 
-v = int(input())
-# 모든 노드에 대한 진입 차수는 0으로 초기화
-indegree = [0] * (v+1)
-# 각 노드에 연결된 간선 정보를 담기 위한 연결 리스트(그래프) 초기화
-graph = [[] for i in range(v+1)]
-# 각 강의 시간을 0으로 초기화
-time = [0] * (v+1)
+arr = [[] for i in range(v+1)] # 각 노드별 연결된 노드를 저장할 리스트 ex : 3번 노드에 1,2가 연결됨
 
-# 방향그래프의 모든 간선 정보를 입력바딕
-for i in range(1, v+1):
-    data = list(map(int, input().split()))
-    time[i] = data[0] # 첫 번째 수는 시간 정보를 담고 있음
-    for x in data[1:-1]:
-        indegree[i] += 1
-        graph[x].append(i)
+time = [0] * (v+1) # 강의 시간을 저장할 리스트
+indegree = [0] * (v+1) # 진입 차수를 저장할 리스트
+
+for i in range(1,v+1): # 노드의 수 만큼 반복
+    data = list(map(int, input().split())) # 강의시간, 선행노드, -1 입력
+    time[i] = data[0] # 입력받은 리스트의 가장 첫번째 인자는 강의시간
+    for x in data[1:-1]: # 입력받은 리스트의 가장 첫 인자(강의시간)와 끝 인자(-1) 의 사이값(연결된 노드) 만큼 반복
+        indegree[i] += 1 # 반복된 횟수는 연결된 노드의 횟수 == 진입차수 이므로 indegree +1
+        arr[x].append(i) # 연결된 노드(즉 상위 노드)의 리스트 번호에 하위 노드들을 삽입 ex 1번 노드에 2,3이 있다면 1번노드는 2,3으로 나간다.
+
+def T_sort():
+    q = deque() # 큐 선언
+    result = copy.deepcopy(time) # 강의 시간이 저장된 리스트를 deepcopy
+
+    for i in range(1, v+1): # 노드의 수만큼 반복
+        if indegree[i] == 0: # 진입차수가 0인 노드부터 진행
+            q.append(i) # 진입차수가 0인 노드는 큐에 삽입
     
-# 위상 정렬 함수
-def TS():
-    result = copy.deepcopy(time) # 알고리즘 수행 결과를 담을 리스트
-    q = deque() # 큐 기능을 위한 deque 라이브러리 사용
-
-    # 처음 시작할 때는 진입 차수가 0인 노드를 큐에 삽입
-    for i in range(1, v+1):
-        if indegree[i] == 0:
-            q.append(i)
-    # 큐가 빌 때까지 반복
-    while q:
-        # 큐에서 원소 꺼내기
-        now = q.popleft()
-        # 해당 원소와 연결된 노드들의 진입차수에서 1 빼기
-        for i in graph[now]:
-            result[i] = max(result[i], result[now] + time[i])
-            indegree[i] -= 1
-            # 새롭게 진입차수가 0이 되는 노드를 큐에 삽입
-            if indegree[i] == 0:
+    while q: # 큐가 빌 때까지 반복
+        now = q.popleft() # 진입 차수가 0인 노드를 큐에서 now(현재노드를 의미)로 빼냄
+        for i in arr[now]: # 진입 차수가 0인 현재노드에 연결된(나가는) 노드를 i로 하면서 반복
+            result[i] = max(result[i], result[now] + time[i]) # 현재 노드에 연결된 노드의 강의 시간은 현재시간과 현재시간+상위시간중 큰것으로 변경
+            indegree[i] -= 1 # 상위노드에 대해 확인 하였으므로 진입차수 -1
+            if indegree[i] == 0: # 위로 3줄의 연산으로 진입차수가 0이 되었다면 큐에 삽입
                 q.append(i)
 
-    # 위상 정렬을 수행한 결과 출력
-    for i in range(1, v+1):
-        print(result[i])
+    for i in range(1, v+1): # 노드의 갯수만큼 반복
+        print(result[i]) # 변경된 시간(연결된 상위 노드의 시간들을 하위 노드 시간에 더한값들)을 하나씩 출력
 
-TS()
+T_sort() # 함수 실행
 
