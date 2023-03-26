@@ -2,7 +2,7 @@
 무지의 먹방 라이브
 링크 : https://school.programmers.co.kr/learn/courses/30/lessons/42891
 평소 식욕이 왕성한 무지는 자신의 재능을 뽐내고 싶어졌고 고민 끝에 카카오TV 라이브 방송을 하기로 마음 먹었습니다.
-그냥 먹방을 하면 다른 방송과 차별성이 없기 때문에 무지는 다음과 같이 독특한 방식을 생각해 냈습니다.
+그냥 먹방을 하면 다른 방송과 차별성이 없기   때문에 무지는 다음과 같이 독특한 방식을 생각해 냈습니다.
 회전판에 먹어야 할 N개의 음식이 있습니다.
 각 음식에는 1부터 N까지 번호가 붙어있으며, 각 음식을 섭취하는데 일정 시간이 소요됩니다.
 무지는 다음과 같은 방법으로 음식을 섭취합니다.
@@ -50,27 +50,28 @@ food_times      K       result
 # 풀이
 import heapq
 def solution(food_times, k):
-    # 전체 음식을 먹는 시간보다 k가 크거나 같다면 -1
+    # K의 시간보다 빨리 전체 음식을 먹게 된다면 return -1
     if sum(food_times) <= k:
         return -1
     
-    # 시간이 작은 음식부터 빼야 하므로 우선순위 큐를 이용
+    # 시간이 적게 걸리는 음식부터 빼서 써야하므로 우선순위 큐를 사용 (음식시간, 음식번호)
     q = []
     for i in range(len(food_times)):
-        # (음식 시간, 음식 번호) 형태로 우선순위 큐에 삽입
         heapq.heappush(q,(food_times[i], i+1))
-    sum_value = 0
-    previous = 0
+    
+    sum_value = 0 # 먹은 시간들의 총합
+    previous = 0 # 이전에 먹은 음식의 시간의 총합
+    length = len(food_times) # food_times의 갯수를 셈으로 써 남은 음식종류 갯수를 파악
 
-    length = len(food_times) # 남은 음식의 갯수
-
-    # sum_value + (현재의 음식 시간 - 이전 음식 시간) * 현재 음식 갯수와 k비교
-    while sum_value + ((q[0][0] - previous) * length) <= k:
-        now = heapq.heappop(q)[0]
+    # sum_value + (현재의 음식 시간 - 이전 음식 시간) * 현재 음식갯수 <= 남은 시간 K를 비교
+    # q[0][0] = 우선순위 큐에서 가장 먼저 나오는 값의 첫번째 값 = [가장적게걸리는음식][해당음식의 시간]
+    while sum_value + (q[0][0] - previous) * length <= k:
+        now = heapq.heappop(q)[0] # 가장 시간이 적게걸리는 음식
         sum_value += (now - previous) * length
-        length -= 1 # 다 먹은 음식 제외
+        length -= 1 # 다먹은 음식을 제외
         previous = now # 이전 음식 시간 재설정
 
     # 남은 음식 중에서 몇 번째 음식인지 확인하여 출력
     result = sorted(q, key = lambda x : x[1]) #음식의 번호 기준으로 정렬
+    # result[(시간K - 먹은 시간들의 총합) % 남은 음식의 종류]
     return result[(k - sum_value) % length][1]
