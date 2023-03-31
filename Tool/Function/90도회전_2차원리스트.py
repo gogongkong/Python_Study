@@ -1,4 +1,6 @@
-def rotated(a):
+# 2차원 리스트를 90도 회전하는 함수
+
+def rotated_90degree(a):
     n = len(a)
     m = len(a[0])
 
