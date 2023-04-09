@@ -62,3 +62,44 @@ B는 서쪽으로부터 떨어진 칸의 개수이다.
 n, m = map(int, input().split())
 x, y, direction = map(int, input().split())
 
+arr = [] # 전체 맵 입력
+for _ in range(n):
+    arr.append(list(map(int, input().split())))
+
+# 방향 설정 = 북, 동, 남, 서 = 상, 우, 하, 좌
+dx = [-1, 0, 1, 0]
+dy = [0, 1, 0, -1]
+
+# 방향 전환 함수 rotate 
+def rotate():
+    global direction
+    direction -= 1
+    if direction == -1:
+        direction = 3
+
+turn_time = 0 # 회전 횟수 기록
+count = 1 # 현재위치 방문처리
+
+# 시뮬레이션 시작
+while True:
+    rotate()
+    nx = x + dx[direction]
+    ny = y + dy[direction]
+    if arr[nx][ny] == 0:
+        arr[x][y] = 1
+        x,y = nx, ny
+        turn_time = 0
+        count += 1 
+        continue
+    else:
+        turn_time += 1
+    if turn_time == 4:
+        nx = x - dx[direction]
+        ny = y - dy[direction]
+        if arr[nx][ny] == 0:
+            x,y = nx, ny
+        else:
+            break
+        turn_time = 0
+
+print(count)
