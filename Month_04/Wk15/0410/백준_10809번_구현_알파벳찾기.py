@@ -21,8 +21,8 @@ baekjoon
 예제 출력 1 
 1 0 -1 -1 2 -1 -1 -1 -1 4 3 -1 -1 7 5 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
 '''
-# a = 97, z = 122
 data = input()
-alpha = list(range(97,123))
-for i in alpha:
-    print(data.find(chr(i)), end=' ')
+
+for l in range(97, 123):
+    n = data.find(chr(l))
+    print(n, end=' ')
