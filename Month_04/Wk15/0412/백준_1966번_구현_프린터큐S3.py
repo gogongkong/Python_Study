@@ -40,34 +40,33 @@ https://www.acmicpc.net/problem/1966
 2
 5
 '''
-
 from collections import deque
+
 tc = int(input())
-result = []
-for i in range(tc):
-    n, m = map(int, input().split())
-    queue = deque(list(map(int, input().split())))
-    count = 0
-    while queue:
-        best = max(queue)
-        front = queue.popleft()
-        m -= 1
-        if best == front:
+
+result = [] # 결과값을 저장할 변수
+for _ in range(tc): # TC 갯수만큼 반복
+    n, m = map(int, input().split()) # 문서 갯수 N, 타겟문서의 중요도 M 입력
+    queue = deque(list(map(int, input().split()))) # 문서의 중요도 입력
+    count = 0 #타겟 문서까지의 순서를 체크하기 위한 count 변수 선언
+    while queue: # queue가 빌 때까지
+        best = max(queue) # 가장 중요도가 높은 문서
+        front = queue.popleft() # 가장 앞에 있는 문서 pop
+        m -= 1 # 맨 앞의 문서 하나가 빠졌기 때문에 타겟문서의 순서도 하나 빠짐
+
+        if front == best: # 맨 앞의 문서가 중요도가 가장 높은 문서일 때
             count += 1
-            if m < 0:
+            if m < 0: # 해당 문서가 타겟 문서인경우
                 result.append(count)
                 break
-        else:
-            if m < 0:
-                queue.append(front)
-                m = len(queue)-1
+        
+        else: # 맨 앞의 문서가 Best가 아닌경우
+            queue.append(front) # 맨 앞 문서를 맨 뒤로 이동
+            if m < 0: # 그 문서가 타겟 문서인경우 타겟문서의 순서 재정렬
+                m = len(queue) - 1
 
-print(result)
-
-
-
-
-
+for i in result:
+    print(i)
 
 
 
