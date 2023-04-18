@@ -45,33 +45,15 @@ N × M 크기의 얼음 틀이 있다. 구멍이 뚫려 있는 부분은 0,
 8
 '''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 n, m = map(int, input().split())
 
-arr = [list(map(int, input())) for _ in range(n)]
+data = [list(map(int, input())) for _ in range(n)]
 
 def dfs(x,y):
-    if x < 0 or y < 0 or x >= n or y >=m or arr[x][y] == 1:
+    if x < 0 or y < 0 or x >= n or y >= m or data[x][y] == 1:
         return False
-    elif arr[x][y] == 0:
-        arr[x][y] = 1
+    elif data[x][y] == 0:
+        data[x][y] = 1
         dfs(x+1,y)
         dfs(x,y+1)
         dfs(x-1,y)
@@ -79,74 +61,11 @@ def dfs(x,y):
         return True
     return False
 
-result = 0
+count = 0
 
 for i in range(n):
     for j in range(m):
         if dfs(i,j) == True:
-            result += 1
+            count += 1
 
-print(result)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# 정답지
-# 얼음틀의 세로길이 N, 가로길이 M 입력
-n, m = map(int, input().split())
-
-arr = []
-# 얼음틀 입력
-for i in range(n):
-    arr.append(list(map(int, input())))
-
-def dfs(x,y):
-    if x < 0 or y < 0 or x >= n or y >=m:
-        return False
-    elif arr[x][y] == 0:
-        arr[x][y] = 1
-        dfs(x+1,y)
-        dfs(x,y+1)
-        dfs(x-1,y)
-        dfs(x,y-1)
-        return True
-    return False
-
-result = 0
-for i in range(n):
-    for j in range(m):
-        if dfs(i,j) == True:
-            result += 1
-print(result)
+print(count)
