@@ -38,60 +38,32 @@ https://www.acmicpc.net/problem/2606
 4
 '''
 
+from collections import deque
 
+n = int(input()) # 컴퓨터의 수
+m = int(input()) # 네트워크의 수
 
+com = [[] for _ in range(n+1)] # 연결을 저장할 리스트
+result = [False] *(n+1) # 감염 여부 확인 리스트 
 
+for _ in range(m): # 네트워크의 수 만큼 반복
+    a, b = map(int, input().split()) # 네트워크 입력
+    com[a].append(b) # 양방향 연결
+    com[b].append(a)
 
+# BFS 시작
+def bfs(start):
+    queue = deque([start]) # 큐에 시작 노드 삽입
+    count = 0 # 횟수 저장 변수
+    result[start] = True # 시작노드 감염처리
+    
+    while queue: # 큐가 빌 때까지 반복
+        now = queue.popleft() # 시작노드 및 현재 노드 pop
+        for next in com[now]: # 현재 노드와 연결된 노드를 next 라는 변수로 반복
+            if not result[next]: # 다음 노드를 방문하지 않았을 경우 == if result[next] == False:
+                result[next] = True # 다음 노드 감염처리
+                queue.append(next) # 다음 노드 큐에 삽입
+                count += 1 # 감염횟수 1 증가
+    return count # 함수 동작이 완료 된 후 감염 횟수 return
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# from collections import deque
-# n = int(input())
-# m = int(input())
-
-# com = [[] for _ in range(n+1)]
-
-# for _ in range(m):
-#     a, b = map(int, input().split())
-#     com[a].append(b)
-#     com[b].append(a)
-
-# visited = [False] * (n+1)
-
-# def bfs(start):
-#     queue = deque([start])
-#     count = 0
-#     visited[start] = True
-#     while queue:
-#         now = queue.popleft()
-#         for next in com[now]:
-#             if not visited[next]:
-#                 visited[next] = True
-#                 queue.append(next)
-#                 count += 1          
-#     return count
-
-# print(bfs(1))
-
+print(bfs(1))
