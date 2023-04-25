@@ -38,60 +38,33 @@ https://www.acmicpc.net/problem/2606
 4
 '''
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 from collections import deque
+
 n = int(input())
 m = int(input())
 
-com = [[] for _ in range(n+1)]
+coms = [[] for _ in range(n+1)]
+check = [False] * (n+1)
 
 for _ in range(m):
     a, b = map(int, input().split())
-    com[a].append(b)
-    com[b].append(a)
+    coms[a].append(b)
+    coms[b].append(a)
 
-visited = [False] * (n+1)
-
-def bfs(start):
-    queue = deque([start])
+def bfs(start, coms, check):
+    queue = deque()
+    queue.append(start)
     count = 0
-    visited[start] = True
+    check[start] = True
     while queue:
         now = queue.popleft()
-        for next in com[now]:
-            if not visited[next]:
-                visited[next] = True
+        for next in coms[now]:
+            if not check[next]:
+                check[next] = True
+                count += 1
                 queue.append(next)
-                count += 1          
     return count
 
-print(bfs(1))
+print(bfs(1, coms, check))
+
 

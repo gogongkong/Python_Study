@@ -37,61 +37,26 @@ https://www.acmicpc.net/problem/2606
 예제 출력 1 
 4
 '''
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-from collections import deque
 n = int(input())
 m = int(input())
 
-com = [[] for _ in range(n+1)]
+coms = [[] for _ in range(n+1)]
+check = [False] * (n+1)
 
 for _ in range(m):
     a, b = map(int, input().split())
-    com[a].append(b)
-    com[b].append(a)
+    coms[a].append(b)
+    coms[b].append(a)
 
-visited = [False] * (n+1)
-
-def bfs(start):
-    queue = deque([start])
-    count = 0
-    visited[start] = True
-    while queue:
-        now = queue.popleft()
-        for next in com[now]:
-            if not visited[next]:
-                visited[next] = True
-                queue.append(next)
-                count += 1          
+def dfs(start, coms, check, count):
+    check[start] = True
+    for next in coms[start]:
+        if check[next] == False:
+            count = dfs(next, coms, check, count+1)
     return count
+     
+print(dfs(1,coms, check, 0))
 
-print(bfs(1))
+
+
 

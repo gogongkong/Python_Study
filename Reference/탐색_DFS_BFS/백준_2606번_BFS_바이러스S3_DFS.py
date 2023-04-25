@@ -60,24 +60,24 @@ https://www.acmicpc.net/problem/2606
 
 
 
-# n = int(input())
-# m = int(input())
+n = int(input())
+m = int(input())
 
-# com = [[] for _ in range(n+1)]
+com = [[] for _ in range(n+1)]
 
-# for _ in range(m):
-#     a, b = map(int, input().split())
-#     com[a].append(b)
-#     com[b].append(a)
+for _ in range(m):
+    a, b = map(int, input().split())
+    com[a].append(b)
+    com[b].append(a)
 
-# def dfs(x, count):
-#     visited[x] = True
-#     for i in com[x]:
-#         if not visited[i]:
-#             count = dfs(i,count+1)
-#     return count
+def dfs(x, count):
+    visited[x] = True
+    for i in com[x]:
+        if not visited[i]:
+            count = dfs(i,count+1)
+    return count
 
-# visited = [False] * (n+1)
-# print(dfs(1,0))
+visited = [False] * (n+1)
+print(dfs(1,0))
 
 
