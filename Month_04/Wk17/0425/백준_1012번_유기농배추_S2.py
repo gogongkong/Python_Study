@@ -67,28 +67,25 @@ https://www.acmicpc.net/problem/1012
 예제 출력 2 
 2
 '''
-
+import sys
+input = sys.stdin.readline
+sys.setrecursionlimit(10**9) # 반복횟수 늘리는 함수
 t = int(input()) # TC 갯수
 
 result = []
 
-dx = [-1,1,0,0]
-dy = [0,0,-1,1]
-
 def dfs(x,y):
-    for i in range(4):
-        nx = x + dx[i]
-        ny = y + dy[i]
-        if x <0 or y<0 or x >= n or y >= m or arr[nx][ny] == 0:
-            return False
-        if arr[x][y] == 1:
-            arr[x][y] = 2
-            dfs(x+1,y)
-            dfs(x,y+1)
-            dfs(x-1,y)
-            dfs(x,y-1)
-            return True
+    if x <0 or y<0 or x >= m or y >= n or arr[x][y] == 0:
+        return False
+    if arr[x][y] == 1:
+        arr[x][y] = 2
+        dfs(x+1,y)
+        dfs(x,y+1)
+        dfs(x-1,y)
+        dfs(x,y-1)
+        return True
     return False
+
 for _ in range(t):
     count = 0
     m, n, k =  map(int, input().split()) #가로 세로 위치
@@ -102,4 +99,5 @@ for _ in range(t):
                 count += 1
     result.append(count)
 
-print(result)
+for i in result:
+    print(i)

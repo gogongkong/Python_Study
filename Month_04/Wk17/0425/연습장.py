@@ -4,5 +4,3 @@ for _ in range(k):
     a, b = map(int, input().split())
     arr[a][b] = 1
 print(arr)
-list(arr)
-print(arr)
