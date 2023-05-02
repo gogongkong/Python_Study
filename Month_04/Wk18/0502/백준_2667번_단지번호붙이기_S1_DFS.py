@@ -33,33 +33,29 @@ https://www.acmicpc.net/problem/2667
 '''
 
 n = int(input())
-arr = [list(map(int, input())) for _ in range(n)]
-count = 0
 
+arr = [list(map(int,input())) for _ in range(n)]
+count = 0
 def dfs(x,y):
     global count
-    if x < 0 or y < 0 or x>=n or y>=n or arr[x][y] == 0:
-        return 0
+    if x < 0 or x >= n or y <0 or y >= n or arr[x][y] == 0:
+        return False
     if arr[x][y] == 1:
         arr[x][y] = 0
         count += 1
-        dfs(x-1,y)
-        dfs(x,y-1)
         dfs(x+1,y)
         dfs(x,y+1)
+        dfs(x-1,y)
+        dfs(x,y-1)
         return count
     
 result = []
 for i in range(n):
     for j in range(n):
-        check = dfs(i,j)
-        if check:
-            print(check)
-            result.append(check)
-            count = 0
-
-print(len(result))
-print(result)
+        if arr[i][j] == 1:
+           result.append(dfs(i,j))
+           count = 0
 result.sort()
+print(len(result))
 for i in result:
     print(i)

@@ -32,34 +32,37 @@ https://www.acmicpc.net/problem/2667
 9
 '''
 
-n = int(input())
-arr = [list(map(int, input())) for _ in range(n)]
-count = 0
+from collections import deque
 
-def dfs(x,y):
-    global count
-    if x < 0 or y < 0 or x>=n or y>=n or arr[x][y] == 0:
-        return 0
-    if arr[x][y] == 1:
-        arr[x][y] = 0
-        count += 1
-        dfs(x-1,y)
-        dfs(x,y-1)
-        dfs(x+1,y)
-        dfs(x,y+1)
-        return count
-    
-result = []
-for i in range(n):
-    for j in range(n):
-        check = dfs(i,j)
-        if check:
-            print(check)
-            result.append(check)
-            count = 0
+n = int(input()) # 지도의 크기 입력받기
+
+data = [list(map(int,input())) for _ in range(n)] # 지도 입력하기
+
+dx = [-1,1,0,0] # 상 하 좌 우
+dy = [0,0,-1,1]
+
+def bfs(x, y):
+    queue = deque()
+    data[x][y] = 0
+    queue.append((x,y))
+    count = 1
+    while queue:
+        x, y = queue.popleft()
+        for i in range(4):
+            nx = x + dx[i]
+            ny = y + dy[i]
+            if nx < 0 or nx >=n or ny <0 or ny >= n or data[nx][ny] == 0:
+                continue
+            if data[nx][ny] == 1:
+                data[nx][ny] = 0
+                queue.append((nx, ny))
+                count +=1
+                
+    return count
+
+result = [bfs(i,j) for i in range(n) for j in range(n) if data[i][j] == 1]
+result.sort()
 
 print(len(result))
-print(result)
-result.sort()
-for i in result:
-    print(i)
+for i in range(len(result)):
+    print(result[i])

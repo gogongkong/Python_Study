@@ -47,11 +47,8 @@ from collections import deque
 
 n, m = map(int, input().split())
 data = [list(map(int,input().split())) for _ in range(n)]
-# 기존처럼 dx, dy로 나눌 수 있지만 하나의 리스트를 두고 for dx,dy in d: 이런식으로 사용도 가능
-d = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)] 
+d = [(-1, 0), (1, 0), (0, -1), (0, 1), (-1, -1), (1, -1), (-1, 1), (1, 1)]
 
-# 보통 queue를 함수 내에서 사용했지만 바깥에서 사용한 이유는
-# 원하는 탐색시작지점(상어의 위치)에서만 탐색하기를 원하기 때문에 미리 queue에 시작점을 삽입
 queue = deque()
 
 def bfs():
@@ -60,11 +57,10 @@ def bfs():
         for dx, dy in d:
             nx = x + dx
             ny = y + dy
-            if nx < 0 or nx >= n or ny < 0 or ny >= m:
+            if nx <0 or nx >= n or ny <0 or ny >= m:
                 continue
-
             if not data[nx][ny]:
-                data[nx][ny] = data[x][y] + 1 
+                data[nx][ny] = data[x][y] + 1
                 queue.append((nx,ny))
 
 for i in range(n):
@@ -73,7 +69,4 @@ for i in range(n):
             queue.append((i,j))
 
 bfs()
-
 print(max(map(max, data))-1)
-arr = [map(max, data)]
-print(arr)
