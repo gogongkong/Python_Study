@@ -30,7 +30,7 @@ https://www.acmicpc.net/problem/2775
 6
 10
 '''
-# 풀이에 도움이 된 출처 : https://afterdawncoding.tistory.com/62
+
 import sys
 input = sys.stdin.readline
 

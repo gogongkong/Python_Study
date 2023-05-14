@@ -30,4 +30,52 @@ https://www.acmicpc.net/problem/1010
 67863915
 '''
 
+# 조합(math 모듈) 이용
+import math
+tc = int(input())
+for _ in range(tc):
+    n,m = map(int, input().split())
+    result = math.factorial(m) // (math.factorial(n) * math.factorial(m-n))
+    print(result)
 
+
+# 조합을 이용
+# mCn : (m-n)!n! / m!
+
+def factorial(n):
+    num = 1
+    for i in range(1, n+1):
+        num *= i
+    return num
+
+tc = int(input())
+for _ in range(tc):
+    n, m = map(int, input().split())
+    result = factorial(m) // (factorial(n) * factorial(m-n))
+    print(result)
+
+
+
+
+# dp 테이블 이용
+# 점화식 : dp[n][m] = dp[n-1][m-1] + dp[n-1][m-2] . . . dp[n-1][n-1]
+# 출처 : https://velog.io/@uoayop/BOJ-1010-%EB%8B%A4%EB%A6%AC-%EB%86%93%EA%B8%B0Python
+import sys
+input = sys.stdin.readline
+
+def bridge(n,m):
+    dp = [ [0 for _ in range(m+1)] for _ in range(n+1)]
+
+    for i in range(1, m+1):
+        dp[1][i] = i
+    
+    for j in range(2, n+1):
+        for k in range(j, m+1):
+            for l in range(k, j-1, -1):
+                dp[j][k] += dp[j-1][l-1]
+    return dp[n][m]
+
+tc = int(input())
+for _ in range(tc):
+    n, m = map(int,input().split())
+    print(bridge(n,m))
