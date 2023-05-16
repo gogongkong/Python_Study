@@ -30,3 +30,15 @@ https://www.acmicpc.net/problem/1010
 67863915
 '''
 
+import math
+import sys
+
+input = sys.stdin.readline
+tc = int(input())
+result = []
+for _ in range(tc):
+    n, m = map(int, input().split())
+    result.append(math.factorial(m)//(math.factorial(n)*math.factorial(m-n)))
+
+for results in result:
+    print(results)
