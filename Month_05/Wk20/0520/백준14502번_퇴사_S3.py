@@ -92,14 +92,11 @@ Pi	10	20	10	20	15	40	200
 
 n = int(input())
 
-data = [list(map(int, input().split())) for i in range(n)] 
-
-dp = [ 0 for i in range(n+1)]    
+data = [list(map(int, input().split())) for _ in range(n)]
+d = [0 for _ in range(n+1)]
 
 for i in range(n):
     for j in range(i+data[i][0], n+1):
-        if dp[j] < dp[i] + data[i][1]:
-            dp[j] = dp[i] + data[i][1]
+        d[j] = max(d[j], d[i] + data[i][1])
 
-print(dp[-1])
-
+print(d[-1])

@@ -90,16 +90,17 @@ Pi	10	20	10	20	15	40	200
 90
 '''
 
-n = int(input())
+# 보텀업
+n = int(input()) # 남은 일할 수 있는 날짜
 
-data = [list(map(int, input().split())) for i in range(n)] 
+data = [list(map(int, input().split())) for _ in range(n)] # 상담기간, 비용 입력
 
-dp = [ 0 for i in range(n+1)]    
+dp = [0 for _ in range(n+1)] # DP 테이블 작성
 
-for i in range(n):
-    for j in range(i+data[i][0], n+1):
-        if dp[j] < dp[i] + data[i][1]:
-            dp[j] = dp[i] + data[i][1]
+for i in range(n): # 상담날짜 오름차순으로 반복
+    for j in range(i + data[i][0], n+1): # 상담 기간이 겹치지 않는 다음 상담일정에 대해 반복
+        if dp[j] < dp[i] + data[i][1]: # 다음상담일정을 더한것이 현재까지 기록된 상담일정보다 비용이 클 경우
+            dp[j] = dp[i] + data[i][1] # 그걸로 갑시다.
 
-print(dp[-1])
+print(dp[-1]) # 마지막 DP 테이블 출력(마지막이 가장 큰 비용이기 때문)
 
