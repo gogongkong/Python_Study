@@ -31,22 +31,18 @@ https://www.acmicpc.net/problem/2775
 10
 '''
 
-import sys
-input = sys.stdin.readline
+TestCase = int(input())
 
-tc = int(input())
-for _ in range(tc):
-    k = int(input())
-    n = int(input())
-    
-    floor = [i for i in range(1,n+1)] # 0층의 정보 작성
-    
-    for _ in range(k): # 층만큼 반복
-        new = []
-        for j in range(n):
-            new.append(sum(floor[:j+1])) #아래층 1~n호 까지의 합
-        floor = new.copy() # 아랫층의 정보를 0층 정보에 저장
-    print(floor[-1])
+for _ in range(TestCase):
+    floor = int(input())
+    room = int(input())
 
-            
+    floor_data = [i for i in range(1,room+1)]
+
+    for _ in range(floor):
+        new_floor = []
+        for i in range(room):
+            new_floor.append(sum(floor_data[:i+1]))
+        floor_data = new_floor.copy()
+    print(floor_data[-1])
 
