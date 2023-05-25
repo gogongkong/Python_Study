@@ -43,7 +43,9 @@ X로부터 출발하여 도달할 수 있는 도시 중에서, 최단 거리가 
 
 from collections import deque
 import sys
+import heapq
 input = sys.stdin.readline
+INF = int(1e9)
 
 # n = 도시(노드)의 갯수, m = 간선의 갯수
 # find = 찾고자 하는 거리의 정보
@@ -53,33 +55,31 @@ n, m, find, start = map(int, input().split())
 data = [[] for _ in range(n+1)]
 for _ in range(m):
     a, b = map(int, input().split())
-    data[a].append(b)
+    data[a].append((b,1))
 
-visited = [False] * (n+1)
-distance = [0] * (n+1)
+distance = [INF] * (n+1)
 
-def bfs(start):
-    queue = deque([start])
-    visited[start] = True
-    distance[start] = 0
+def daik(start):
     result = []
-    while queue:
-        now = queue.popleft()
+    q = []
+    heapq.heappush(q,(0,start))
+    distance[start] = 0
+    while q:
+        dist, now = heapq.heappop(q)
+        if distance[now] < dist:
+            continue
         for i in data[now]:
-            if not visited[i]:
-                visited[i] = True
-                distance[i] = distance[now] + 1
-                queue.append(i)
-                if distance[i] == find:
-                    result.append(i)
-            
-
+            cost = dist + i[1]
+            if cost < distance[i[0]]:
+                distance[i[0]] = cost
+                if distance[i[0]] == find:
+                    result.append(i[0])
+                heapq.heappush(q,(cost, i[0]))
+    
     if len(result) == 0:
         print(-1)
     else:
-        result.sort()
         for results in result:
             print(results)
 
-bfs(start)
-
+daik(start)
