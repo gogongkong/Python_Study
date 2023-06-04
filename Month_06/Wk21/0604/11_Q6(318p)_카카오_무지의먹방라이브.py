@@ -63,43 +63,27 @@ import heapq
 food_times = [8, 6, 4]
 
 k = 15
-
 def solution(food_times, k):
-    if sum(food_times) < k:
+    # 네트워크 장애 전에 음식 섭취가 끝나는 경우
+    if sum(food_times) <= k:
         return -1
-    
-    sum_times = 0 # 현재까지 먹은 음식의 총합
-    previous = 0 # 직전에 먹은 음식의 갯수
 
-    length = len(food_times) # 현재 남아있는 음식 종류의 수
-
-    queue = []
+    q = []
     for i in range(len(food_times)):
-        heapq.heappush(queue, (food_times[i], i+1)) # 먹는시간, 음식 번호(순서) 기준으로 heapq에 push
+        heapq.heappush(q,(food_times[i], i+1))
+    
+    sum_foods = 0
+    previous = 0 
+    length = len(food_times)
 
-    # 현재까지 먹은 음식의 총합에 이제먹을 음식을 더한 값이 K보다 작거나 같다면 반복을 종료한다.
-    # 이제 먹을 음식의 정의는 다음과 같다
-    # heapq에서 빼낸 가장 빨리 먹는 음식의 갯수는 이전에 먹은 음식 갯수의 사이클 만큼 먹었던 것으로 간주된다
-    # 그렇기 때문에 가장 빨리 먹는 음식에서 이전에 먹은 음식을 빼줘야 이제 먹을 음식의 갯수가 된다.
-    # 그 갯수에 음식 종류의 수를 곱하는데 음식 종류의 수 또한 다음 먹을 음식까지 포함된 사이클이 된다.
-    # sum_times에 지금 먹을 음식을 더하면 지금 먹을음식까지 걸리는 시간이 되고
-    # 그 시간이 k보다 크게 된다면 반복을 종료하고 K시간 이후에 어떤 음식을 먹어야 하는지 찾으면 된다.
-    while sum_times + (queue[0][0] - previous) * length <= k:
-        now = heapq.heappop(queue)[0] # 가장 빨리 먹는 음식을 heapq에서 pop
-        # 현재 먹을 음식을 직전 음식 갯수에서 빼고 음식 종류를 곱한값을 더해줌
-        # 즉 지금까지 먹은 음식들의 시간의 총합이 된다.
-        sum_times += (now - previous) * length 
-        length -= 1 # 현재 음식을 모두 섭취 하였기 때문에 음식종류가 1개 줄어든다
-        previous = now # 직전음식은 현재 섭취한 음식이 된다.
+    while sum_foods + (q[0][0] -previous) * length < k:
+        now = heapq.heappop(q)[0]
+        sum_foods = (now - previous) * length
+        previous = now
+        length -= 1
 
-    # 반복을 빠져 나왔다면 남아있는 음식들을 음식 번호 기준으로 오름차순으로 정렬한다.
-    # 음식 번호를 기준으로 순서대로 돌면서 k번째 직후의 번호를 찾아야 하기 때문이다
-    # 남아 있는 음식들은 queue에 있다.
-    result = sorted(queue, key= lambda x:x[1])
+    result = sorted(q, key=lambda x: x[1])
 
-    # K 번째 직후의 번호를 알아 내는 방법은
-    # K에서 현재까지 먹은 시간(sum_times)를 빼면 남은 시간이 되는데
-    # (해당 시간에서 남은 음식의 종류로 나누었을 때 나머지)번째먹는 시간의 음식번호가 정답이 된다.
-    return result[(k-sum_times) % length][1]
+    return result[(k-sum_foods) % length][1]
 
 print(solution(food_times, k))
