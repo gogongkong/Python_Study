@@ -58,34 +58,37 @@ s                                   result
 문자열은 제일 앞부터 정해진 길이만큼 잘라야 합니다.
 따라서 주어진 문자열을 x / ababcdcd / ababcdcd 로 자르는 것은 불가능 합니다.
 이 경우 어떻게 문자열을 잘라도 압축되지 않으므로 가장 짧은 길이는 17이 됩니다.
+
 '''
+
+s = "aabbaccc"
 
 def solution(s):
     answer = len(s)
-
-    # 1개 단위(step)부터 압축 단위를 늘려가며 확인
-    for step in range(1, len(s) // 2 + 1):
-        compressed = ""
-        prev = s[0:step] # 앞에서 부터 step 만큼의 문자열 추출
+    # 몇개로 쪼갤것인지 1~ 단어의 절반 길이까지 증가하며 반복
+    for word in range(1, len(s) // 2 +1): 
+        prev = s[0:word] # 비교군 ( 한개씩 혹은 그이상씩 쪼갠 단어들로 비교할 때 처음 사용할 비교군)
+        zipping = ""
         count = 1
-        # 단위 (step) 크기만큼 증가시키며 이전 문자열과 비교
-        for j in range(step, len(s), step):
-            # 이전과 동일하다면 count 증가
-            if prev == s[j:j + step]:
+        for j in range(word, len(s), word): # 비교군 이후 부터 비교군의 단어 갯수 만큼 증가하며 반복
+            # 비교군과 같다면
+            if prev == s[j:j+word]:
                 count += 1
-            # 다른 문자열이 나왔다면 ( 더이상 압축하지 못하는 경우 )
+            # 다르다면
             else:
                 if count >= 2:
-                    compressed += str(count) + prev
+                    zipping += str(count) + prev
                 else:
-                    compressed += prev
-                prev = s[j:j+step] # 상태 초기화
+                    zipping += prev
+                # 비교군 초기화
                 count = 1
-        # 남아 있는 문자열의 처리
+                prev = s[j:j+word]
+        # 단어의 끝까지 확인한 경우 마지막 단어에 대한 비교 실시
         if count >= 2:
-            compressed += str(count) + prev
+            zipping += str(count) + prev
         else:
-            compressed += prev
-        # 만들어 지는 압축 문자열이 가장 짧은 것이 정답
-        answer = min(answer, len(compressed))
+            zipping += prev
+        answer = min(answer, len(zipping))
     return answer
+
+print(solution(s))

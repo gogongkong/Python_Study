@@ -24,21 +24,18 @@ AJKDLSI412K4JSJ9D
 ADDIJJJKKLSS20
 
 '''
-
-data = input()
+data = list(input())
 
 alpha = []
-number = 0
+num = 0
 
 for datas in data:
-    if datas.isalpha() == True:
+    if datas.isalpha():
         alpha.append(datas)
     else:
-        number += int(datas)
+        num += int(datas)
 
 alpha.sort()
-
 for i in alpha:
     print(i,end='')
-
-print(number)
+print(num)
