@@ -32,32 +32,36 @@ https://www.acmicpc.net/problem/1260
 
 '''
 from collections import deque
+import sys
+input = sys.stdin.readline
 
-n, m, start = map(int, input().split()) # 노드 : n / 간선 : m / 시작점 : start
-data = [[] for _ in range(n+1)]
+# 노드 n, 간선 m, 시작노드 start
+n, m, start = map(int, input().split())
+data = [[] for _ in range(n+1)] # 간선의 정보를 담을 리스트
+# 간선의 정보 입력, 양방향 연결, 노드 오름차순 정렬
 for _ in range(m):
     a, b = map(int, input().split())
     data[a].append(b)
     data[b].append(a)
-visited = [False] * (n+1)
 
-result_bfs = [start]
+for i in range(len(data)):
+    data[i].sort()
+
+# 방문 정보와 방문 순서를 담을 리스트 초기화
+visited = [False] * (n+1)
 result_dfs = [start]
+result_bfs = [start]
 
 def dfs(start, data, visited):
     visited[start] = True
-    for i in data[start]:
-        if not visited[i]:
-            visited[i] = True
-            result_dfs.append(i)
-            dfs(i, data, visited)
+    
+    for next in data[start]:
+        if not visited[next]:
+            visited[next] = True
+            result_dfs.append(next)
+            dfs(next, data, visited)
+            
     return result_dfs
-
-for i in dfs(start, data, visited):
-    print(i, end=' ')
-print()
-
-visited = [False] * (n+1)
 
 def bfs(start, data, visited):
     queue = deque()
@@ -66,12 +70,24 @@ def bfs(start, data, visited):
 
     while queue:
         now = queue.popleft()
-        for i in data[now]:
-            if not visited[i]:
-                visited[i] = True
-                queue.append(i)
-                result_bfs.append(i)
+        for next in data[now]:
+            if not visited[next]:
+                visited[next] = True
+                result_bfs.append(next)
+                queue.append(next)
+    
+    return result_bfs
 
-    print(result_bfs)
+dfs(start, data, visited)
+
+for i in result_dfs:
+    print(i,end=' ')
+print()
+
+visited = [False] * (n+1)
 
 bfs(start, data, visited)
+
+for i in result_bfs:
+    print(i,end=' ')
+print()
