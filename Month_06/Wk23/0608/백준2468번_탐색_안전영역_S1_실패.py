@@ -27,14 +27,14 @@ def bfs(x,y,h,data):
             ny = y + dy[i]
             if nx < 0 or ny < 0 or nx >=n or ny >= n or data[nx][ny] - h <= 0:
                 continue
-            elif data[nx][ny] != 0:
+            elif data[nx][ny] > 0:
                 data[nx][ny] = 0
                 queue.append((nx,ny))
     return True
 
 for h in range(height):
     data_copy = copy.deepcopy(data)
-    #count = 0
+    count = 0
     for i in range(n):
         for j in range(n):
             if bfs(i,j,h,data_copy):
