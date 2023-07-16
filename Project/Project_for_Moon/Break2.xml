@@ -1,0 +1,12 @@
+<libraries>
+  <library name="lib1" location="seoul">
+    <book name="book1" price="10.0" author="Bumjin"/>
+    <book name="book2" price="20.0" author="Apple"/>
+    <book name="book3" price="40.0" author="Bumjin"/>
+  </library>
+  <library name="lib1" location="busan">
+    <book name="book2" price="10.0" author="Bumjin"/>
+    <book name="book3" price="40.0" author="Apple"/>
+    <book name="book4" price="10.0" author="Siso"/>
+  </library>
+</libraries>
