@@ -23,11 +23,11 @@ for xml_file in xml_list:
     root = tree.getroot()
 
     ##수정할 부분
-    target_tag = root.find("food")
+    target_tag = root.find("price")
 
     original = target_tag.text
     
-    modified = original.replace(r"",r"")
+    modified = original.replace(r'price', r'MOD')
     target_tag.text = modified  #수정
     print("[" + str(num) + "]" + xml_file + "[success]")
     
