@@ -21,16 +21,16 @@ def change(number):
     return number
 
 def switch(data, cnt):
-    count = cnt
+    count = cnt # cnt = count 를 하는 이유 처음 전구를 눌렀다면 count +=1이 되는데 그걸 미리 해준것임 27번째 줄에서 count +=1 하지 않았기 때문
     if count == 1:
         data[0] = change(data[0])
         data[1] = change(data[1])
     for i in range(1, n):
-        if data[i-1] != result[i-1]:
+        if data[i-1] != result[i-1]: # 이전 전구가 다른상황
             count +=1
             data[i-1] = change(data[i-1])
             data[i] = change(data[i])
-            if i != n-1:
+            if i != n-1: # 마지막 전구까지 가지 않았다면 if문에 걸림 ( == 마지막 전구가 아니라면 i+1도 change state)
                 data[i+1] = change(data[i+1])
     if data == result:
         return count
