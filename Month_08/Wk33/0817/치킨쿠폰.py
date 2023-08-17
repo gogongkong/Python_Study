@@ -14,19 +14,10 @@ def solution(chicken):
     result = chicken // 10
     cupon = (chicken // 10) + (chicken % 10)
 
-    # result += cupon // 10
-    # cupon = (cupon // 10) + (cupon % 10)
-
-    # result += cupon // 10
-    # cupon = (cupon // 10) + (cupon % 10)
-
-    # result += cupon // 10
-    # cupon = (cupon // 10) + (cupon % 10)
-
     while cupon // 10 != 0:
         result += cupon // 10
         cupon = (cupon // 10) + (cupon % 10)
 
-    return print(result)
+    return result
 
 solution(chicken)
